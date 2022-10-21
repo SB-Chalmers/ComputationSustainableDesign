@@ -1,0 +1,25 @@
+identifier;Material;Thickness;Conductivity;Cost;Embodied carbon;Density;U-value
+insulation;Mineral_wool;0.1;0.038;23;1.61;300;na
+insulation;Polystyrene_with_skin;0.1;0.04;102;4;250;na
+insulation;_rock_wool_fasade;0.07;0.02;28;1.61;80;na
+insulation;_rock_wool_roof;0.07;0.02;28;1.61;180;na
+insulation;Wood_fiber;0.28;0.038;239;0.371;50;na
+insulation;Glass_wool;0.32;0.042;148;1.13;15;na
+insulation;extruded_polystyrene_(XPS);0.2;0.03;180;4.5;50;na
+insulation;Expanded_clay_aggregate_insulation;0.1;0.07;140;0.243;400;na
+Board;Plasterboard;0.02;0.4;32;0.333;760;na
+Board;Plastic_sheet_(Polycarbonates);0.02;0.2;900;2.75;800;na
+Board;Gypsum_board;0.013;0.21;32;0.333;760;na
+Board;Particle_board;0.02;0.1;115;0.488;300;na
+Board;Gypsum__fireboard_MDF;0.02;0.07;50;0.32;250;na
+Board;Gypsum__floorboard_;0.02;0.43;50;0.296;1120;na
+Board;Cement_fibreboard__construction_board_?_0.60;0.02;0.25;420;0.849;1080;na
+Board;OSB;0.02;0.13;192;0.448;607;na
+Board;light_weight_Concrete;0.025;0.1;200;0.291;1360;na
+Board;Plywood;0.02;0.09;216;0.448;460;na
+window;Window__wood/aluminium_inward_3-glass;na;na;3500;2.5;40;1.1
+window;Window_wood_inward__3-glass;na;na;3700;2.13;36;0.85
+window;Window_wood_fixed__3-glass;na;na;1600;2.13;35;0.8
+window;Window_wood/aluminium_side_hung_3-glass;na;na;3500;2.88;39;0.6
+window;Window_wood_side_hung_3-glass;na;na;3700;2.5;38;0.6
+window;Window_wood/aluminium_fully_reversable__3-glass;na;na;4000;2.78;39;0.8
