@@ -5,7 +5,7 @@ The script makes use of a helper csv file with the material properties and LCA/L
 
 The solutions are created using the Honeybee library.
 
-Some assumtions are made within the script for all materials. 64799 Solutions are created from the example CSV.
+Some assumtions are made within the script for all materials. 6,479 Solutions are created from the example CSV.
 
 Sample HB material
 ```

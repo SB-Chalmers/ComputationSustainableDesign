@@ -11,7 +11,7 @@ __version__ = "2022.10.21"
 import rhinoscriptsyntax as rs
 import itertools
 import ghpythonlib.treehelpers as th
-
+"""
 solution_3 = [[i, j, k] for i in _board 
                  for j in _insulation
                  for k in _board]
@@ -22,8 +22,14 @@ solution_5 = [[i, j, k,l,m] for i in _board
                  for k in _board
                  for l in _insulation
                  for m in _board]
+"""
 
-sol_combined = solution_3+solution_5
-solution_3 = th.list_to_tree(solution_3)
-solution_5 = th.list_to_tree(solution_5)
+solution_4_layers = [[i, j, k,l] for i in _insulation
+                 for j in _board
+                 for k in _insulation
+                 for l in _board]
+#sol_combined = solution_3+solution_5
+sol_combined = solution_4_layers
+#solution_3 = th.list_to_tree(solution_3)
+#solution_5 = th.list_to_tree(solution_5)
 sol_combined = th.list_to_tree(sol_combined)
