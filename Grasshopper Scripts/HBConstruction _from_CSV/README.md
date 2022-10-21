@@ -8,6 +8,7 @@ The solutions are created using the Honeybee library.
 Some assumtions are made within the script for all materials. 6,479 Solutions are created from the example CSV.
 
 Sample HB material
+![Script](media/mat properties.png)
 ```
 Construction,
  Min_Pla,                  !- name
