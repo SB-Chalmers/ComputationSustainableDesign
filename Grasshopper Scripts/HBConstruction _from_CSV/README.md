@@ -1,5 +1,5 @@
 # A script to create HB materials and Component solutions from a CSV for parametric sensitivity analysis
-![Script](media\script.png)
+![Script](media/script.png)
 
 The script makes use of a helper csv file with the material properties and LCA/LCC Parameters.
 
