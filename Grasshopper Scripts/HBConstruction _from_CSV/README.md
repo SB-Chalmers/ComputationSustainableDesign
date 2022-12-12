@@ -1,4 +1,9 @@
 # A script to create HB materials and Component solutions from a CSV for parametric sensitivity analysis
+
+Date: 2022 December 12  
+Author: Sanjay Somanath  
+Contact: sanjay.somanath@chalmers.se  
+
 ![Script](media/script.png)
 
 The script makes use of a helper csv file with the material properties and LCA/LCC Parameters.
