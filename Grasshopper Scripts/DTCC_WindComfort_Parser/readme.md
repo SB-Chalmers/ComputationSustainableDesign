@@ -12,7 +12,7 @@ This script makes use of
 * Ladybug tools, Version=1.5.0
 * CockroachGH, Version=1.0.0.0
 
-
+![Image caption here](media/Wind_gif.gif)
 
 ## Using the script
 ![Image caption here](media/script_01.jpg)
@@ -40,4 +40,15 @@ Below is a sample of the csv file
 |2         |-147.75 |-237    |47.567  |
 |2         |-147    |-236.5  |47.617  |
 
+
+
+![Image caption here](media/script_02.jpg)
+
 * Then the script uses the CockroachGH plugin to load the points as a point cloud.
+
+![Image caption here](media/script_03.jpg)
+* Using Delauney triangulation to create a regularised mesh.
+
+![Image caption here](media/script_04.jpg)
+
+* Different ways of visualising the data
