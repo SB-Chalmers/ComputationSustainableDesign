@@ -9,7 +9,19 @@ Contact:  domkom@chalmers.se
 
 ### Dependancies
 this script makes use of  
-* Ladybug tools version 1.5.0
-* 
+* Ladybug tools version 1.5.0 (OpenStudio, DragonFly, HoneyBee)
+* epw file for the location
 
-![Image caption here](media/image.jpg)
+
+![picture of the script](media/DF_HB_Energy_Variations.png)
+
+![example of the obtained results](media/media.jpg)
+
+the following parameters have been adopted:   
+_floor_to_floor: @3
+perim_offset: 0  
+HB Building Programs: MediumOffice  
+for constr_set: HB Climate Zones: 5-Cool    
+DF Model to HB: 
+_obj_per_model: deistrict
+Use_multiplier: true (in order to simplify calculations)
