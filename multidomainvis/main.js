@@ -43,7 +43,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_1.stl',
         energyPath: './data/energy/alt_1.csv',
         noisePath: '../data/noise/option_1_Lden.csv',
-        radiationPath: undefined,
+        radiationPath: '../data/radiation/20230328_RadiationOption1_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_1/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_1/WindroseSurfaceNodes.csv'
     },
@@ -52,6 +52,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_2.stl',
         noisePath: '../data/noise/option_2_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption2_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_2/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_2/WindroseSurfaceNodes.csv'
     },
@@ -60,6 +61,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_3.stl',
         noisePath: '../data/noise/option_3_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption3_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_3/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_3/WindroseSurfaceNodes.csv'
     },
@@ -68,6 +70,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_4.stl',
         noisePath: '../data/noise/option_4_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption4_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_4/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_4/WindroseSurfaceNodes.csv'
     },
@@ -76,6 +79,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_5.stl',
         noisePath: '../data/noise/option_5_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption5_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_5/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_5/WindroseSurfaceNodes.csv'
     },
@@ -84,6 +88,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_6.stl',
         noisePath: '../data/noise/option_6_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption6_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_6/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_6/WindroseSurfaceNodes.csv'
     },
@@ -92,6 +97,7 @@ const dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_7.stl',
         noisePath: '../data/noise/option_7_Lden.csv',
+        radiationPath: '../data/radiation/20230328_RadiationOption7_10mgrid.csv',
         windSurfaceCellPath: '../data/wind/Option_7/WindroseSurfaceCell.csv',
         windSurfaceNodesPath: '../data/wind/Option_7/WindroseSurfaceNodes.csv'
     }

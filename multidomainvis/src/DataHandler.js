@@ -40,9 +40,9 @@ class DataHandler {
             }
 
             positions.push(
-                d["x"], //- cityOrigin.x,
+                d["x"], // - 24.850166 , // Magic grid offset number
                 50,
-                - (d["y"]),// - cityOrigin.y),
+                - (d["y"]), // - 32.03199), // Magic grid offset number
             );
 
             values.push(value);
