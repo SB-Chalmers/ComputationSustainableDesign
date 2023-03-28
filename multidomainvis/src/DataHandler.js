@@ -20,6 +20,7 @@ class DataHandler {
         //mesh.castShadow = true;
         //mesh.receiveShadow = true;
 
+        mesh.visible = false;
         this.scene.add(mesh);
         dataSet.objects.set('buildingOption', mesh);
     }
@@ -61,14 +62,18 @@ class DataHandler {
         dataSet.legends.set('radiation', colorbar);
 
         this.scene.add(particles);
+        particles.visible = false;
     }
 
     onWindDataLoaded(cellData, nodeData, cityOrigin, dataSet) {
-        const positions = [];
-        const normals = [];
-        const colors = [];
+        // Initialise the arrays beforehand for efficiency
+        // Each cell triangle has three vertices (nodes), with
+        // three positional values, hence 9.
+        const positions = new Float32Array(cellData.length * 9);
+        const normals = new Float32Array(cellData.length * 9);
+        const colors = new Float32Array(cellData.length * 9);
 
-        console.log("Creating wind mesh")
+        const columns = ['node 1', 'node 2', 'node 3'];
 
         const colorMap = [
             0x0000FF, // A | Frequent sitting
@@ -79,39 +84,34 @@ class DataHandler {
             0xFF5500  // S | Unsafe
         ].map(v=>new THREE.Color(v));
 
-        for (let cell of cellData) {
-            const value = cell['Lawson LDDC'];
+        let value, color, nodeID, node;
+        for (let i=0; i<cellData.length; i++) {
+            value = cellData[i]['Lawson LDDC'];
 
             if (value === undefined) {
-                console.log(cell);
+                console.warn("Why undefined?");
                 continue;
             }
 
-            for (let nodeID of ['node 1', 'node 2', 'node 3']) {
-                const node = nodeData[cell[nodeID]];
-                positions.push(
-                    node.x - cityOrigin.x,
-                    node.z,
-                    - (node.y - cityOrigin.y),
-                );
-                normals.push(
-                    0, 1, 0,
-                    0, 1, 0,
-                    0, 1, 0
-                );
-            }
+            color = colorMap[value];
 
-            const color = colorMap[value];
-            colors.push(
-                color.r, color.g, color.b,
-                color.r, color.g, color.b,
-                color.r, color.g, color.b
-            );
+            for (let j=0; j<3; j++) {
+                nodeID = columns[j];
+                node = nodeData[cellData[i][nodeID]];
+                positions[i*9 + j*3] = node.x - cityOrigin.x;
+                positions[i*9 + j*3 + 1] = node.z;
+                positions[i*9 + j*3 + 2] = - (node.y - cityOrigin.y);
+
+                normals[i*9 + j*3 + 1] = 1; // Y is up
+
+                colors[i*9 + j*3] = color.r;
+                colors[i*9 + j*3 + 1] = color.g;
+                colors[i*9 + j*3 + 2] = color.b;
+            }
         }
 
         const geometry = new THREE.BufferGeometry();
-        const vertices = new Float32Array(positions);
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
         geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
         const material = new THREE.MeshStandardMaterial({
@@ -127,6 +127,7 @@ class DataHandler {
         colorbar.src = "data/wind/surfaceLawson_option_0.png";
         document.getElementById("legendContainer").append(colorbar);
 
+        mesh.visible = false;
         this.scene.add(mesh);
 
         dataSet.objects.set('wind', mesh);
@@ -160,6 +161,7 @@ class DataHandler {
         }
 
         const particles = drawParticles(positions, colors, 4);
+        particles.visible = false;
         this.scene.add(particles);
 
         const colorbar = createColorbar(lut, "Noise");
@@ -199,6 +201,7 @@ class DataHandler {
             buildingGroup.add(mesh);
         }
         buildingGroup.rotateX(-Math.PI / 2);
+        buildingGroup.visible = false;
         this.scene.add(buildingGroup);
 
         dataSet.objects.set('energy', buildingGroup);

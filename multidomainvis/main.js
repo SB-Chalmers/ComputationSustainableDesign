@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
 import {Sky} from './libs/Sky.js';
+import {STLLoader} from './libs/STLLoader.js';
 import {DataHandler} from './src/DataHandler.js';
 import { DataSet } from './src/Dataset.js';
 
@@ -20,66 +21,83 @@ const parameters = {
     wind: true,
     radiation: true,
     colorMap: 'rainbow',
-    option: "Option 1"
+    option: "Option 0"
 };
 
+let dataSets;
+
+// Paths loaded through web worker (CSVs) need to be
+// relative to the worker directory (src/)
 const dataSpecs = [
     {
         name: 'Option 0',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
-        noisePath: './data/noise/option_0_Lden.csv',
-        radiationPath: './data/radiation/20230327_RadiationBaseCase.csv',
+        noisePath: '../data/noise/option_0_Lden.csv',
+        radiationPath: '../data/radiation/20230327_RadiationBaseCase.csv',
+        windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_0/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 1',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_1.stl',
         energyPath: './data/energy/alt_1.csv',
-        noisePath: './data/noise/option_1_Lden.csv',
+        noisePath: '../data/noise/option_1_Lden.csv',
         radiationPath: undefined,
-        windSurfaceCellPath: './data/wind/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: './data/wind/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_1/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_1/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 2',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_2.stl',
-        noisePath: './data/noise/option_2_Lden.csv',
+        noisePath: '../data/noise/option_2_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_2/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_2/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 3',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_3.stl',
-        noisePath: './data/noise/option_3_Lden.csv',
+        noisePath: '../data/noise/option_3_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_3/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_3/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 4',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_4.stl',
-        noisePath: './data/noise/option_4_Lden.csv',
+        noisePath: '../data/noise/option_4_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_4/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_4/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 5',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_5.stl',
-        noisePath: './data/noise/option_5_Lden.csv',
+        noisePath: '../data/noise/option_5_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_5/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_5/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 6',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_6.stl',
-        noisePath: './data/noise/option_6_Lden.csv',
+        noisePath: '../data/noise/option_6_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_6/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_6/WindroseSurfaceNodes.csv'
     },
     {
         name: 'Option 7',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_7.stl',
-        noisePath: './data/noise/option_7_Lden.csv',
+        noisePath: '../data/noise/option_7_Lden.csv',
+        windSurfaceCellPath: '../data/wind/Option_7/WindroseSurfaceCell.csv',
+        windSurfaceNodesPath: '../data/wind/Option_7/WindroseSurfaceNodes.csv'
     }
 ]
 
 init();
-animate();
 
 function init() {
     container = document.getElementById('container');
@@ -131,38 +149,49 @@ function init() {
     updateSun();
 
     controls = new MapControls(camera, renderer.domElement);
+    controls.addEventListener('change', render);
     controls.maxPolarAngle = Math.PI * 0.495;
     controls.target.set(800, 50, -1000);
     controls.minDistance = 1.0;
     controls.maxDistance = 5000.0;
     controls.update();
 
-    // GUI
-
-    const gui = new GUI();
-
     window.addEventListener('resize', onWindowResize);
 
     const dataHandler = new DataHandler(scene, parameters);
 
-    const dataSets = dataSpecs.map(d=>
+    let nLoadingDatasets = dataSpecs.length;
+    dataSets = dataSpecs.map(d=>
         new DataSet(
             d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
             d.energyPath, d.noisePath, d.radiationPath,
             d.windSurfaceCellPath, d.windSurfaceNodesPath,
             dataset => {
-                console.log("Setting")
-                dataset.setVisibility(parameters)
+                document.getElementById("loadingLog").innerHTML += `<li>${dataset.name} loaded</li>`;
+                nLoadingDatasets--;
+                dataset.setVisibility(parameters);
+                if (nLoadingDatasets == 0) {
+                    onDataLoaded()
+                }
             }
         )
     );
+}
+
+function onDataLoaded() {
+    console.log("All datasets loaded");
+    render();
 
     const updateVisibilities = () => {
         for (let d of dataSets) {
             d.setVisibility(parameters);
+            render();
         }
-    }
+    };
 
+    updateVisibilities();
+
+    const gui = new GUI();
     gui.add(parameters, 'option', dataSpecs.map(d=>d.name)).onChange(updateVisibilities);
 
     const folderData = gui.addFolder('Data');
@@ -170,7 +199,7 @@ function init() {
         folderData.add(parameters, param, true).onChange(updateVisibilities);
     }
 
-    updateVisibilities();
+    document.getElementById("overlay").style.display = "none";
 }
 
 function onWindowResize() {
@@ -179,12 +208,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    render();
-}
-
 function render() {
     //const time = performance.now() * 0.001;
+    console.log("Rendering")
     renderer.render(scene, camera);
 }

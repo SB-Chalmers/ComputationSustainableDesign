@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {STLLoader} from '../libs/STLLoader.js';
+import {loadCSV} from '../src/csvLoader.js';
 
 async function getJSON(path) {
     return fetch(path)
@@ -123,12 +124,9 @@ class DataSet {
             console.warn(`No noise data provided for ${this.name}.`);
             return;
         }
-        Papa.parse(noisePath, {
-            download: true, dynamicTyping: true,
-            complete: results => {
-                this.logFinished(noisePath);
-                this.dataHandler.onNoiseDataLoaded(results.data, cityOrigin, this);
-            }
+        loadCSV(noisePath, false, result => {
+            this.logFinished(noisePath);
+            this.dataHandler.onNoiseDataLoaded(result, cityOrigin, this);
         });
     }
 
@@ -137,12 +135,9 @@ class DataSet {
             console.warn(`No radiation data provided for ${this.name}.`);
             return;
         }
-        Papa.parse(radiationPath, {
-            download: true, header: true, dynamicTyping: true,
-            complete: results => {
-                this.logFinished(radiationPath);
-                this.dataHandler.onRadiationDataLoaded(results.data, cityOrigin, this);
-            }
+        loadCSV(radiationPath, true, result => {
+            this.logFinished(radiationPath);
+            this.dataHandler.onRadiationDataLoaded(result, cityOrigin, this);
         });
     }
 
@@ -157,24 +152,19 @@ class DataSet {
             this.dataHandler.onWindDataLoaded(cellResults, nodeResults, cityOrigin, this);
         }
 
-        Papa.parse(windSurfaceCellPath, {
-            download: true, header: true, dynamicTyping: true,
-            complete: results => {
-                this.logFinished(windSurfaceCellPath);
-                cellResults = results.data;
-                if (nodeResults) {
-                    onBothLoaded();
-                }
+        loadCSV(windSurfaceCellPath, true, result => {
+            this.logFinished(windSurfaceCellPath);
+            cellResults = result;
+            if (nodeResults) {
+                onBothLoaded();
             }
         });
-        Papa.parse(windSurfaceNodesPath, {
-            download: true, header: true, dynamicTyping: true,
-            complete: results => {
-                this.logFinished(windSurfaceNodesPath);
-                nodeResults = results.data;
-                if (cellResults) {
-                   onBothLoaded();
-                }
+
+        loadCSV(windSurfaceNodesPath, true, result => {
+            this.logFinished(windSurfaceNodesPath);
+            nodeResults = result;
+            if (cellResults) {
+               onBothLoaded();
             }
         });
     }
