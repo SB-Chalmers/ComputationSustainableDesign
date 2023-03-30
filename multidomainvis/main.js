@@ -3,9 +3,9 @@ import * as THREE from 'three';
 import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
 import {Sky} from './libs/Sky.js';
-import {STLLoader} from './libs/STLLoader.js';
 import {DataHandler} from './src/DataHandler.js';
-import { DataSet } from './src/Dataset.js';
+import {DataSet} from './src/Dataset.js';
+import {loadCSV} from './src/csvLoader.js';
 
 let container;
 let camera, scene, renderer;
@@ -28,15 +28,18 @@ let dataSets;
 
 // Paths loaded through web worker (CSVs) need to be
 // relative to the worker directory (src/)
+
+const windSurfaceCellPath = '../data/wind/WindroseSurfaceCell.csv';
+const windSurfaceNodesPath = '../data/wind/WindroseSurfaceNodes.csv';
+const windSurfaceLawsonPath = '../data/wind/LawsonLDDC.csv';
 const dataSpecs = [
     {
         name: 'Option 0',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         noisePath: '../data/noise/option_0_Lden.csv',
         radiationPath: '../data/radiation/20230327_RadiationBaseCase.csv',
-        windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_0/WindroseSurfaceNodes.csv'
-    },
+        windColumnName: 'Option_0',
+    }/*,
     {
         name: 'Option 1',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
@@ -44,8 +47,7 @@ const dataSpecs = [
         energyPath: './data/energy/alt_1.csv',
         noisePath: '../data/noise/option_1_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption1_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_1/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_1/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_1',
     },
     {
         name: 'Option 2',
@@ -53,8 +55,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_2.stl',
         noisePath: '../data/noise/option_2_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption2_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_2/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_2/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_2',
     },
     {
         name: 'Option 3',
@@ -62,8 +63,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_3.stl',
         noisePath: '../data/noise/option_3_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption3_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_3/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_3/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_3'
     },
     {
         name: 'Option 4',
@@ -71,8 +71,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_4.stl',
         noisePath: '../data/noise/option_4_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption4_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_4/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_4/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_4'
     },
     {
         name: 'Option 5',
@@ -80,8 +79,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_5.stl',
         noisePath: '../data/noise/option_5_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption5_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_5/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_5/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_5'
     },
     {
         name: 'Option 6',
@@ -89,8 +87,7 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_6.stl',
         noisePath: '../data/noise/option_6_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption6_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_6/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_6/WindroseSurfaceNodes.csv'
+        windColumnName: 'Option_6'
     },
     {
         name: 'Option 7',
@@ -98,9 +95,8 @@ const dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_7.stl',
         noisePath: '../data/noise/option_7_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption7_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_7/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_7/WindroseSurfaceNodes.csv'
-    }
+        windColumnName: 'Option_7'
+    }*/
 ]
 
 init();
@@ -166,22 +162,47 @@ function init() {
 
     const dataHandler = new DataHandler(scene, parameters);
 
-    let nLoadingDatasets = dataSpecs.length;
-    dataSets = dataSpecs.map(d=>
-        new DataSet(
-            d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
-            d.energyPath, d.noisePath, d.radiationPath,
-            d.windSurfaceCellPath, d.windSurfaceNodesPath,
-            dataset => {
-                document.getElementById("loadingLog").innerHTML += `<li>${dataset.name} loaded</li>`;
-                nLoadingDatasets--;
-                dataset.setVisibility(parameters);
-                if (nLoadingDatasets == 0) {
-                    onDataLoaded()
+    let cellResults, nodeResults;
+
+    const onBothLoaded = () => {
+        let [windMesh, windLegend] = dataHandler.onWindMeshDataLoaded(
+            cellResults, nodeResults, new THREE.Vector2(319189, 6396991)
+        );
+
+        // Load the rest of the data
+        let nLoadingDatasets = dataSpecs.length;
+        dataSets = dataSpecs.map(d=>{
+            console.time(`Load ${d.name}`)
+            new DataSet(
+                d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
+                d.energyPath, d.noisePath, d.radiationPath, windMesh, 
+                windLegend, windSurfaceLawsonPath, d.windColumnName,
+                dataset => {
+                    console.timeEnd(`Load ${d.name}`)
+                    document.getElementById("loadingLog").innerHTML += `<li>${dataset.name} loaded</li>`;
+                    nLoadingDatasets--;
+                    dataset.setVisibility(parameters);
+                    if (nLoadingDatasets == 0) {
+                        onDataLoaded()
+                    }
                 }
-            }
-        )
-    );
+            )
+        });
+    }
+
+    loadCSV(windSurfaceCellPath, true, result => {
+        cellResults = result;
+        if (nodeResults) {
+            onBothLoaded();
+        }
+    });
+
+    loadCSV(windSurfaceNodesPath, true, result => {
+        nodeResults = result;
+        if (cellResults) {
+           onBothLoaded();
+        }
+    });
 }
 
 function onDataLoaded() {
@@ -212,10 +233,10 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    render()
 }
 
 function render() {
-    //const time = performance.now() * 0.001;
     console.log("Rendering")
     renderer.render(scene, camera);
 }

@@ -65,15 +65,16 @@ class DataHandler {
         particles.visible = false;
     }
 
-    onWindDataLoaded(cellData, nodeData, cityOrigin, dataSet) {
-        // Initialise the arrays beforehand for efficiency
-        // Each cell triangle has three vertices (nodes), with
+    onWindValueDataLoaded(lawsonData, columnName, dataSet) {
+        // Initialise the arrays beforehand for efficiency.
+        // Each triangle has three vertices (nodes), with
         // three positional values, hence 9.
-        const positions = new Float32Array(cellData.length * 9);
-        const normals = new Float32Array(cellData.length * 9);
-        const colors = new Float32Array(cellData.length * 9);
+        const colors = new Float32Array(lawsonData.length * 9);
 
-        const columns = ['node 1', 'node 2', 'node 3'];
+        const whites = new Float32Array(lawsonData.length * 9);
+        for (let i=0; i<lawsonData.length * 9; i++) {
+            whites[i] = 1;
+        }
 
         const colorMap = [
             0x0000FF, // A | Frequent sitting
@@ -84,9 +85,9 @@ class DataHandler {
             0xFF5500  // S | Unsafe
         ].map(v=>new THREE.Color(v));
 
-        let value, color, nodeID, node;
-        for (let i=0; i<cellData.length; i++) {
-            value = cellData[i]['Lawson LDDC'];
+        let value, color;
+        for (let i=0; i<lawsonData.length; i++) {
+            value = lawsonData[i][columnName];
 
             if (value === undefined) {
                 console.warn("Why undefined?");
@@ -94,7 +95,29 @@ class DataHandler {
             }
 
             color = colorMap[value];
+            for (let j=0; j<3; j++) {
+                colors[i*9 + j*3] = color.r;
+                colors[i*9 + j*3 + 1] = color.g;
+                colors[i*9 + j*3 + 2] = color.b;
+            }
+        }
 
+        dataSet.windColorBuffer = new THREE.Float32BufferAttribute(colors, 3);
+        dataSet.defaultWindColorBuffer = new THREE.Float32BufferAttribute(whites, 3);
+    }
+
+    onWindMeshDataLoaded(cellData, nodeData, cityOrigin) {
+        // Initialise the arrays beforehand for efficiency
+        // Each cell triangle has three vertices (nodes), with
+        // three positional values, hence 9.
+        const positions = new Float32Array(cellData.length * 9);
+        const normals = new Float32Array(cellData.length * 9);
+        //const colors = new Float32Array(cellData.length * 9);
+
+        const columns = ['node 1', 'node 2', 'node 3'];
+
+        let nodeID, node;
+        for (let i=0; i<cellData.length; i++) {
             for (let j=0; j<3; j++) {
                 nodeID = columns[j];
                 node = nodeData[cellData[i][nodeID]];
@@ -103,19 +126,14 @@ class DataHandler {
                 positions[i*9 + j*3 + 2] = - (node.y - cityOrigin.y);
 
                 normals[i*9 + j*3 + 1] = 1; // Y is up
-
-                colors[i*9 + j*3] = color.r;
-                colors[i*9 + j*3 + 1] = color.g;
-                colors[i*9 + j*3 + 2] = color.b;
             }
         }
 
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));;
+        //geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
         const material = new THREE.MeshStandardMaterial({
-            //side: THREE.DoubleSide,
             color: 0xF5F5F5,
             vertexColors: true
         });
@@ -124,15 +142,18 @@ class DataHandler {
         const colorbar = document.createElement('img');
         colorbar.classList.add('legend');
         colorbar.style.padding = '5px';
-        colorbar.src = "data/wind/surfaceLawson_option_0.png";
+        colorbar.src = "data/wind/surfaceLawson.png";
         document.getElementById("legendContainer").append(colorbar);
 
         mesh.visible = false;
         this.scene.add(mesh);
 
-        dataSet.objects.set('wind', mesh);
-        dataSet.legends.set('wind', colorbar);
+        console.log("Wind mesh loaded");
+
+        return [mesh, colorbar];
     }
+
+
 
     onNoiseDataLoaded(data, cityOrigin, dataSet) {
         const positions = [];
@@ -164,7 +185,7 @@ class DataHandler {
         particles.visible = false;
         this.scene.add(particles);
 
-        const colorbar = createColorbar(lut, "Noise");
+        const colorbar = createColorbar(lut, "Noise (dB)");
         document.getElementById("legendContainer").append(colorbar);
 
         dataSet.legends.set('noise', colorbar);

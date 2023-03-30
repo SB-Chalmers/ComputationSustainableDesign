@@ -13,8 +13,8 @@ async function getJSON(path) {
 class DataSet {
     constructor(name, dataHandler, cityModelPath,
         buildingOptionPath, energyPath, noisePath,
-        radiationPath, windSurfaceCellPath, windSurfaceNodesPath,
-        onLoadingFinished
+        radiationPath, windMesh, windLegend, windValuesPath,
+        windValuesColumnName, onLoadingFinished
     ) {
         this.name = name;
         this.dataHandler = dataHandler;
@@ -24,17 +24,24 @@ class DataSet {
         this.objects = new Map();
         this.legends = new Map();
 
+        if (windMesh) {
+            this.objects.set("wind", windMesh);
+        }
+        if (windLegend) {
+            this.legends.set("wind", windLegend);
+        }
+
         // Keep track of files to load
         this.remainingLoads = [cityModelPath,
             buildingOptionPath, energyPath, noisePath,
-            radiationPath, windSurfaceCellPath, windSurfaceNodesPath
+            radiationPath, windValuesColumnName
         ].filter(path => path !== undefined);
 
         const loadRemainingData = cityOrigin => {
             this.loadBuildingOptionMesh(buildingOptionPath, cityOrigin);
             this.loadNoise(noisePath, cityOrigin);
             this.loadRadiation(radiationPath, cityOrigin);
-            this.loadWindSurface(windSurfaceCellPath, windSurfaceNodesPath, cityOrigin);
+            this.loadWindValues(windValuesPath, windValuesColumnName);
         }
 
         if (cityModelPath) {
@@ -62,7 +69,15 @@ class DataSet {
         for (let p of ['buildingOption', 'energy', 'noise', 'radiation', 'wind']) {
             const visible = this.name == parameters['option'] && parameters[p];
             if (this.objects.has(p)) {
-                this.objects.get(p).visible = visible;
+                if (p == 'wind' && this.windColorBuffer) {
+                    const g = this.objects.get(p).geometry;
+                    g.setAttribute('color',
+                        visible ? this.windColorBuffer : this.defaultWindColorBuffer
+                    );
+                    g.attributes.color.needsUpdate = true;
+                } else {
+                    this.objects.get(p).visible = visible;
+                }
                 console.log(`${visible ? 'Showing':'Hiding'} ${p} object for ${this.name}.`);
             }
             if (this.legends.has(p)) {
@@ -141,32 +156,15 @@ class DataSet {
         });
     }
 
-    loadWindSurface(windSurfaceCellPath, windSurfaceNodesPath, cityOrigin) {
-        if (!windSurfaceCellPath || !windSurfaceNodesPath) {
+    loadWindValues(lawsonLDDCPath, columnName) {
+        if (!lawsonLDDCPath || !columnName) {
             console.warn(`No wind data provided for ${this.name}.`);
             return;
         }
-        let cellResults, nodeResults;
-
-        const onBothLoaded = () => {
-            this.dataHandler.onWindDataLoaded(cellResults, nodeResults, cityOrigin, this);
-        }
-
-        loadCSV(windSurfaceCellPath, true, result => {
-            this.logFinished(windSurfaceCellPath);
-            cellResults = result;
-            if (nodeResults) {
-                onBothLoaded();
-            }
-        });
-
-        loadCSV(windSurfaceNodesPath, true, result => {
-            this.logFinished(windSurfaceNodesPath);
-            nodeResults = result;
-            if (cellResults) {
-               onBothLoaded();
-            }
-        });
+        loadCSV(lawsonLDDCPath, true, result => {
+            this.logFinished(columnName);
+            this.dataHandler.onWindValueDataLoaded(result, columnName, this);
+        })
     }
 }
 
