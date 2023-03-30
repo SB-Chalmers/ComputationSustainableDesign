@@ -41,7 +41,7 @@ class DataHandler {
 
             positions.push(
                 d["x"], // - 24.850166 , // Magic grid offset number
-                50,
+                51.3,
                 - (d["y"]), // - 32.03199), // Magic grid offset number
             );
 
@@ -147,7 +147,7 @@ class DataHandler {
             }
             positions.push(
                 x - cityOrigin.x,
-                58,
+                59.7,
                 - (y - cityOrigin.y)
             );
             noiseVals.push(noiseVal);
@@ -164,7 +164,7 @@ class DataHandler {
         particles.visible = false;
         this.scene.add(particles);
 
-        const colorbar = createColorbar(lut, "Noise");
+        const colorbar = createColorbar(lut, "Noise (dB)");
         document.getElementById("legendContainer").append(colorbar);
 
         dataSet.legends.set('noise', colorbar);
@@ -207,7 +207,7 @@ class DataHandler {
         dataSet.objects.set('energy', buildingGroup);
 
         if (energyMap.size > 0) {
-            const colorbar = createColorbar(lut, "Energy");
+            const colorbar = createColorbar(lut, "Energy (kWh/m<sup>2</sup>)");
             document.getElementById("legendContainer").append(colorbar);
             dataSet.legends.set('energy', colorbar);
         }

@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
 import {Sky} from './libs/Sky.js';
-import {STLLoader} from './libs/STLLoader.js';
 import {DataHandler} from './src/DataHandler.js';
 import { DataSet } from './src/Dataset.js';
 
@@ -103,6 +102,25 @@ const dataSpecs = [
     }
 ]
 
+document.addEventListener('keyup', (e) => {
+    const dY = 0.1;
+    console.log(e.code)
+    if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+        for (let d of dataSets) {
+            if (d) {
+                for (let p of ['noise', 'radiation']) {
+                    if (d.objects.has(p)) {
+                        if (d.objects.get(p).visible) {
+                            d.objects.get(p).position.y += (e.code === "ArrowDown" ? -1 : 1) * dY;
+                            render();
+                        }
+                    }
+                }
+            }
+        }
+    }
+  });
+
 init();
 
 function init() {
@@ -166,14 +184,18 @@ function init() {
 
     const dataHandler = new DataHandler(scene, parameters);
 
+    const loadingLog = document.getElementById("loadingLog");
     let nLoadingDatasets = dataSpecs.length;
     dataSets = dataSpecs.map(d=>
         new DataSet(
             d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
             d.energyPath, d.noisePath, d.radiationPath,
             d.windSurfaceCellPath, d.windSurfaceNodesPath,
+            (dataset, path) => {
+                loadingLog.innerHTML += `<li>${dataset.name} loaded ${path}</li>`;
+            },
             dataset => {
-                document.getElementById("loadingLog").innerHTML += `<li>${dataset.name} loaded</li>`;
+                loadingLog.innerHTML += `<li><b>${dataset.name} fully loaded</b></li>`;
                 nLoadingDatasets--;
                 dataset.setVisibility(parameters);
                 if (nLoadingDatasets == 0) {
@@ -212,6 +234,7 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    render();
 }
 
 function render() {

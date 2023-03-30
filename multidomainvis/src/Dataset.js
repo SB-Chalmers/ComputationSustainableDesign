@@ -13,11 +13,12 @@ async function getJSON(path) {
 class DataSet {
     constructor(name, dataHandler, cityModelPath,
         buildingOptionPath, energyPath, noisePath,
-        radiationPath, windSurfaceCellPath, windSurfaceNodesPath,
+        radiationPath, windSurfaceCellPath, windSurfaceNodesPath, onLoadingUpdate,
         onLoadingFinished
     ) {
         this.name = name;
         this.dataHandler = dataHandler;
+        this.onLoadingUpdate = onLoadingUpdate;
         this.onLoadingFinished = onLoadingFinished;
 
         // Keep track of THREE objects and HTML legends
@@ -52,6 +53,7 @@ class DataSet {
         if (index > -1) {
             this.remainingLoads.splice(index, 1);
         }
+        this.onLoadingUpdate(this, path.split('/').slice(-1)[0]);
         if (this.remainingLoads.length === 0) {
             console.log(`All loading finished for ${this.name}`);
             this.onLoadingFinished(this);
