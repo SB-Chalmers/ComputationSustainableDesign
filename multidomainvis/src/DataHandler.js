@@ -57,7 +57,8 @@ class DataHandler {
         const particles = drawParticles(positions, colors, 15, true);
         dataSet.objects.set('radiation', particles);
 
-        const colorbar = createColorbar(lut, "Radiation (kWh/m<sup>2</sup>)");
+        const title = dataSet.name === "Option 0" ? "Radiation, base case (kWh/m<sup>2</sup>)" : "Radiation, difference from base case (kWh/m<sup>2</sup>)"
+        const colorbar = createColorbar(lut, title);
         document.getElementById("legendContainer").append(colorbar);
         dataSet.legends.set('radiation', colorbar);
 
