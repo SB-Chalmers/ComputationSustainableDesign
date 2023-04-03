@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import {STLLoader} from '../libs/STLLoader.js';
-import {loadCSV} from '../src/csvLoader.js';
 
 async function getJSON(path) {
     return fetch(path)
@@ -13,13 +12,15 @@ async function getJSON(path) {
 class DataSet {
     constructor(name, dataHandler, cityModelPath,
         buildingOptionPath, energyPath, noisePath,
-        radiationPath, windSurfaceCellPath, windSurfaceNodesPath, onLoadingUpdate,
-        onLoadingFinished
+        radiationPath, windSurfaceCellPath, windSurfaceNodesPath, csvLoader,
+        onLoadingUpdate, onLoadingFinished
     ) {
         this.name = name;
         this.dataHandler = dataHandler;
         this.onLoadingUpdate = onLoadingUpdate;
         this.onLoadingFinished = onLoadingFinished;
+
+        this.csvLoader = csvLoader;
 
         // Keep track of THREE objects and HTML legends
         this.objects = new Map();
@@ -147,7 +148,7 @@ class DataSet {
             console.warn(`No noise data provided for ${this.name}.`);
             return;
         }
-        loadCSV(noisePath, false, result => {
+        this.csvLoader.loadCSV(noisePath, false, result => {
             this.dataHandler.onNoiseDataLoaded(result, cityOrigin, (mesh, colorbar) => {
                 this.legends.set('noise', colorbar);
                 this.objects.set('noise', mesh);
@@ -161,7 +162,7 @@ class DataSet {
             console.warn(`No radiation data provided for ${this.name}.`);
             return;
         }
-        loadCSV(radiationPath, true, result => {
+        this.csvLoader.loadCSV(radiationPath, true, result => {
             this.dataHandler.onRadiationDataLoaded(result, this, (mesh, colorbar) => {
                 this.objects.set('radiation', mesh);
                 this.legends.set('radiation', colorbar);
@@ -185,14 +186,14 @@ class DataSet {
             });
         }
 
-        loadCSV(windSurfaceCellPath, true, result => {
+        this.csvLoader.loadCSV(windSurfaceCellPath, true, result => {
             cellResults = result;
             if (nodeResults) {
                 onBothLoaded();
             }
         });
 
-        loadCSV(windSurfaceNodesPath, true, result => {
+        this.csvLoader.loadCSV(windSurfaceNodesPath, true, result => {
             nodeResults = result;
             if (cellResults) {
                onBothLoaded();

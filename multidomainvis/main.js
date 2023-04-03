@@ -4,7 +4,8 @@ import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
 import {Sky} from './libs/Sky.js';
 import {DataHandler} from './src/DataHandler.js';
-import { DataSet } from './src/Dataset.js';
+import {DataSet} from './src/Dataset.js';
+import {CSVLoader} from './src/CSVLoader.js';
 
 let container;
 let camera, scene, renderer;
@@ -102,9 +103,8 @@ const dataSpecs = [
     }
 ]
 
-document.addEventListener('keyup', (e) => {
+document.addEventListener('keydown', (e) => {
     const dY = 0.1;
-    console.log(e.code)
     if (e.code === "ArrowUp" || e.code === "ArrowDown") {
         for (let d of dataSets) {
             if (d) {
@@ -183,6 +183,7 @@ function init() {
     window.addEventListener('resize', onWindowResize);
 
     const dataHandler = new DataHandler(scene, parameters);
+    const csvLoader = new CSVLoader(3);
 
     const loadingLog = document.getElementById("loadingLog");
     let nLoadingDatasets = dataSpecs.length;
@@ -191,6 +192,7 @@ function init() {
             d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
             d.energyPath, d.noisePath, d.radiationPath,
             d.windSurfaceCellPath, d.windSurfaceNodesPath,
+            csvLoader,
             (dataset, path) => {
                 loadingLog.innerHTML += `<li>${dataset.name} loaded ${path}</li>`;
             },
@@ -200,6 +202,7 @@ function init() {
                 dataset.setVisibility(parameters);
                 if (nLoadingDatasets == 0) {
                     onDataLoaded()
+                    csvLoader.decommission();
                 }
             }
         )
