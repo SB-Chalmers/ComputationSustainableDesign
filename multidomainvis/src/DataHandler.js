@@ -9,7 +9,7 @@ class DataHandler {
     }
 
 
-    onBuildingOptionDataLoaded(geometry, cityOrigin, dataSet) {
+    onBuildingOptionDataLoaded(geometry, cityOrigin, callback) {
         const origin = new THREE.Vector3(cityOrigin.x, 0, cityOrigin.y);
         geometry.rotateX(-Math.PI / 2);
         geometry.scale(1,1,-1);
@@ -17,15 +17,16 @@ class DataHandler {
         geometry.scale(1,1,-1);
         const material = new THREE.MeshStandardMaterial({color: 0xAAAAAA, transparent: true, opacity: 0.8, flatShading: true});
         const mesh = new THREE.Mesh(geometry, material);
-        //mesh.castShadow = true;
-        //mesh.receiveShadow = true;
 
         mesh.visible = false;
         this.scene.add(mesh);
-        dataSet.objects.set('buildingOption', mesh);
+
+        if (callback) {
+            callback(mesh);
+        }
     }
 
-    onRadiationDataLoaded(data, cityOrigin, dataSet) {
+    onRadiationDataLoaded(data, dataSet, callback) {
         const positions = [];
         const colors = [];
         const lut = new Lut("blackbody", 32);
@@ -54,25 +55,29 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const particles = drawParticles(positions, colors, 15, true);
-        dataSet.objects.set('radiation', particles);
+        const mesh = drawParticles(positions, colors, 15, true);
 
         const title = dataSet.name === "Option 0" ? "Radiation, base case (kWh/m<sup>2</sup>)" : "Radiation, difference from base case (kWh/m<sup>2</sup>)"
         const colorbar = createColorbar(lut, title);
         document.getElementById("legendContainer").append(colorbar);
-        dataSet.legends.set('radiation', colorbar);
 
-        this.scene.add(particles);
-        particles.visible = false;
+        this.scene.add(mesh);
+        mesh.visible = false;
+
+
+        if (callback) {
+            callback(mesh, colorbar);
+        }
     }
 
-    onWindDataLoaded(cellData, nodeData, cityOrigin, dataSet) {
+    onWindDataLoaded(cellData, nodeData, cityOrigin, callback) {
         // Initialise the arrays beforehand for efficiency
         // Each cell triangle has three vertices (nodes), with
         // three positional values, hence 9.
-        const positions = new Float32Array(cellData.length * 9);
-        const normals = new Float32Array(cellData.length * 9);
-        const colors = new Float32Array(cellData.length * 9);
+        const positions = new Float32Array(nodeData.length * 3);
+        const normals = new Float32Array(nodeData.length * 3);
+        const colors = new Float32Array(nodeData.length * 3);
+        const indices = new Array(cellData.length * 3);
 
         const columns = ['node 1', 'node 2', 'node 3'];
 
@@ -85,38 +90,40 @@ class DataHandler {
             0xFF5500  // S | Unsafe
         ].map(v=>new THREE.Color(v));
 
-        let value, color, nodeID, node;
+        let node;
+        for (let i=0; i<nodeData.length; i++) {
+            node = nodeData[i];
+            for (let j=0; j<3; j++) {
+                positions[i*3 + j*3] = node.x - cityOrigin.x;
+                positions[i*3 + j*3 + 1] = node.z;
+                positions[i*3 + j*3 + 2] = - (node.y - cityOrigin.y);
+
+                normals[i*3 + j*3 + 1] = 1; // Y is up
+            }
+        }
+
+        let value, color, nodeID;
         for (let i=0; i<cellData.length; i++) {
             value = cellData[i]['Lawson LDDC'];
-
-            if (value === undefined) {
-                console.warn("Why undefined?");
-                continue;
-            }
 
             color = colorMap[value];
 
             for (let j=0; j<3; j++) {
-                nodeID = columns[j];
-                node = nodeData[cellData[i][nodeID]];
-                positions[i*9 + j*3] = node.x - cityOrigin.x;
-                positions[i*9 + j*3 + 1] = node.z;
-                positions[i*9 + j*3 + 2] = - (node.y - cityOrigin.y);
+                nodeID = cellData[i][columns[j]];
+                colors[nodeID * 3] = color.r;
+                colors[nodeID * 3 + 1] = color.g;
+                colors[nodeID * 3 + 2] = color.b;
 
-                normals[i*9 + j*3 + 1] = 1; // Y is up
-
-                colors[i*9 + j*3] = color.r;
-                colors[i*9 + j*3 + 1] = color.g;
-                colors[i*9 + j*3 + 2] = color.b;
+                indices[i*3 + j] = nodeID;
             }
         }
 
         const geometry = new THREE.BufferGeometry();
+        geometry.setIndex(indices);
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
         geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
         const material = new THREE.MeshStandardMaterial({
-            //side: THREE.DoubleSide,
             color: 0xF5F5F5,
             vertexColors: true
         });
@@ -131,11 +138,12 @@ class DataHandler {
         mesh.visible = false;
         this.scene.add(mesh);
 
-        dataSet.objects.set('wind', mesh);
-        dataSet.legends.set('wind', colorbar);
+        if (callback) {
+            callback(mesh, colorbar);
+        }
     }
 
-    onNoiseDataLoaded(data, cityOrigin, dataSet) {
+    onNoiseDataLoaded(data, cityOrigin, callback) {
         const positions = [];
         const colors = [];
         const lut = new Lut("rainbow", 32);
@@ -161,18 +169,19 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const particles = drawParticles(positions, colors, 4);
-        particles.visible = false;
-        this.scene.add(particles);
+        const mesh = drawParticles(positions, colors, 4);
+        mesh.visible = false;
+        this.scene.add(mesh);
 
         const colorbar = createColorbar(lut, "Noise (dB)");
         document.getElementById("legendContainer").append(colorbar);
 
-        dataSet.legends.set('noise', colorbar);
-        dataSet.objects.set('noise', particles);
+        if (callback) {
+            callback(mesh, colorbar);
+        }
     }
 
-    onCityDataLoaded(loadedData, energyMap, dataSet) {
+    onCityDataLoaded(loadedData, energyMap, callback) {
         const lut = new Lut('rainbow', 32);
         for (let building of energyMap.values()) {
             lut.minV = Math.min(lut.minV, building.Total);
@@ -205,12 +214,14 @@ class DataHandler {
         buildingGroup.visible = false;
         this.scene.add(buildingGroup);
 
-        dataSet.objects.set('energy', buildingGroup);
-
+        let colorbar
         if (energyMap.size > 0) {
-            const colorbar = createColorbar(lut, "Energy (kWh/m<sup>2</sup>)");
+            colorbar = createColorbar(lut, "Energy (kWh/m<sup>2</sup>)");
             document.getElementById("legendContainer").append(colorbar);
-            dataSet.legends.set('energy', colorbar);
+        }
+
+        if(callback) {
+            callback(buildingGroup, colorbar);
         }
 
         return loadedData.Origin;

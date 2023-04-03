@@ -26,15 +26,27 @@ class DataSet {
         this.legends = new Map();
 
         // Keep track of files to load
-        this.remainingLoads = [cityModelPath,
-            buildingOptionPath, energyPath, noisePath,
-            radiationPath, windSurfaceCellPath, windSurfaceNodesPath
-        ].filter(path => path !== undefined);
+        this.remainingLoads = [];
+        if (buildingOptionPath) {
+            this.remainingLoads.push('buildingOption');
+        }
+        if (energyPath) {
+            this.remainingLoads.push('energy');
+        }
+        if (noisePath) {
+            this.remainingLoads.push('noise');
+        }
+        if (radiationPath) {
+            this.remainingLoads.push('radiation');
+        }
+        if (windSurfaceCellPath && windSurfaceNodesPath) {
+            this.remainingLoads.push('wind');
+        }
 
         const loadRemainingData = cityOrigin => {
             this.loadBuildingOptionMesh(buildingOptionPath, cityOrigin);
             this.loadNoise(noisePath, cityOrigin);
-            this.loadRadiation(radiationPath, cityOrigin);
+            this.loadRadiation(radiationPath);
             this.loadWindSurface(windSurfaceCellPath, windSurfaceNodesPath, cityOrigin);
         }
 
@@ -48,12 +60,12 @@ class DataSet {
 
     }
 
-    logFinished(path) {
-        const index = this.remainingLoads.indexOf(path);
+    logFinished(key) {
+        const index = this.remainingLoads.indexOf(key);
         if (index > -1) {
             this.remainingLoads.splice(index, 1);
         }
-        this.onLoadingUpdate(this, path.split('/').slice(-1)[0]);
+        this.onLoadingUpdate(this, key);
         if (this.remainingLoads.length === 0) {
             console.log(`All loading finished for ${this.name}`);
             this.onLoadingFinished(this);
@@ -78,9 +90,14 @@ class DataSet {
         if (!energyPath) {
             console.warn(`No energy data provided for ${this.name}`);
             getJSON(cityModelPath).then(j => {
-                this.logFinished(cityModelPath);
                 const energyMap = new Map();
-                const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, this);
+                const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, (mesh, colorbar) => {
+                    this.objects.set('energy', mesh);
+                    if (colorbar) {
+                        this.legends.set('energy', colorbar);
+                    }
+                    this.logFinished('energy');
+                });
                 callback(cityOrigin);
             });
             return;
@@ -89,15 +106,17 @@ class DataSet {
         Papa.parse(energyPath, {
             download: true, dynamicTyping: true, header: true,
             complete: results => {
-                this.logFinished(energyPath);
                 const energyMap = new Map();
                 for (let row of results.data) {
                     energyMap.set(row.ID, row);
                 }
 
                 getJSON(cityModelPath).then(j => {
-                    this.logFinished(cityModelPath);
-                    const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, this);
+                    const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, (mesh, colorbar) => {
+                        this.objects.set('energy', mesh);
+                        this.legends.set('energy', colorbar);
+                        this.logFinished('energy');
+                    });
                     callback(cityOrigin);
                 });
             },
@@ -113,9 +132,11 @@ class DataSet {
         loader.load(
             buildingOptionPath,
             geometry => {
-                this.logFinished(buildingOptionPath);
                 this.dataHandler.onBuildingOptionDataLoaded(
-                    geometry, cityOrigin, this
+                    geometry, cityOrigin, mesh => {
+                        this.objects.set('buildingOption', mesh);
+                        this.logFinished('buildingOption');
+                    }
                 )
             }
         );
@@ -127,19 +148,25 @@ class DataSet {
             return;
         }
         loadCSV(noisePath, false, result => {
-            this.logFinished(noisePath);
-            this.dataHandler.onNoiseDataLoaded(result, cityOrigin, this);
+            this.dataHandler.onNoiseDataLoaded(result, cityOrigin, (mesh, colorbar) => {
+                this.legends.set('noise', colorbar);
+                this.objects.set('noise', mesh);
+                this.logFinished('noise');
+            });
         });
     }
 
-    loadRadiation(radiationPath, cityOrigin) {
+    loadRadiation(radiationPath) {
         if (!radiationPath) {
             console.warn(`No radiation data provided for ${this.name}.`);
             return;
         }
         loadCSV(radiationPath, true, result => {
-            this.logFinished(radiationPath);
-            this.dataHandler.onRadiationDataLoaded(result, cityOrigin, this);
+            this.dataHandler.onRadiationDataLoaded(result, this, (mesh, colorbar) => {
+                this.objects.set('radiation', mesh);
+                this.legends.set('radiation', colorbar);
+                this.logFinished('radiation');
+            });
         });
     }
 
@@ -151,11 +178,14 @@ class DataSet {
         let cellResults, nodeResults;
 
         const onBothLoaded = () => {
-            this.dataHandler.onWindDataLoaded(cellResults, nodeResults, cityOrigin, this);
+            this.dataHandler.onWindDataLoaded(cellResults, nodeResults, cityOrigin, (mesh, colorbar) => {
+                this.objects.set('wind', mesh);
+                this.legends.set('wind', colorbar);
+                this.logFinished('wind');
+            });
         }
 
         loadCSV(windSurfaceCellPath, true, result => {
-            this.logFinished(windSurfaceCellPath);
             cellResults = result;
             if (nodeResults) {
                 onBothLoaded();
@@ -163,7 +193,6 @@ class DataSet {
         });
 
         loadCSV(windSurfaceNodesPath, true, result => {
-            this.logFinished(windSurfaceNodesPath);
             nodeResults = result;
             if (cellResults) {
                onBothLoaded();
