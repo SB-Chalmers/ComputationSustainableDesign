@@ -8,7 +8,6 @@ class DataHandler {
         this.scene = scene;
     }
 
-
     onBuildingOptionDataLoaded(geometry, cityOrigin, callback) {
         const origin = new THREE.Vector3(cityOrigin.x, 0, cityOrigin.y);
         geometry.rotateX(-Math.PI / 2);

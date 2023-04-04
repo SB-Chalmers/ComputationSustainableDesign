@@ -12,15 +12,11 @@ let camera, scene, renderer;
 let controls, sun;
 
 const parameters = {
-    elevation: 17,
-    azimuth: 80,
-    exposure: 0.7,
     buildingOption: true,
     energy: true,
     noise: true,
     wind: true,
     radiation: true,
-    colorMap: 'rainbow',
     option: "Option 0"
 };
 
@@ -145,10 +141,6 @@ function init() {
     sky.scale.setScalar(10000);
     scene.add(sky);
 
-    //const light = new THREE.PointLight(0xff0000, 1, 100);
-    //light.position.set(800, 1000, -1000);
-    //scene.add(light);
-
     const skyUniforms = sky.material.uniforms;
 
     skyUniforms['turbidity'].value = 10;
@@ -159,18 +151,15 @@ function init() {
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
     let renderTarget;
 
-    function updateSun() {
-        const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
-        const theta = THREE.MathUtils.degToRad(parameters.azimuth);
-        const exposure = parameters.exposure;
-        sun.setFromSphericalCoords(1, phi, theta);
-        sky.material.uniforms['sunPosition'].value.copy(sun);
-        if (renderTarget !== undefined) renderTarget.dispose();
-        renderTarget = pmremGenerator.fromScene(sky);
-        renderer.toneMappingExposure = exposure;
-        scene.environment = renderTarget.texture;
-    }
-    updateSun();
+    const phi = THREE.MathUtils.degToRad(73);
+    const theta = THREE.MathUtils.degToRad(80);
+    const exposure = 0.7;
+    sun.setFromSphericalCoords(1, phi, theta);
+    sky.material.uniforms['sunPosition'].value.copy(sun);
+    if (renderTarget !== undefined) renderTarget.dispose();
+    renderTarget = pmremGenerator.fromScene(sky);
+    renderer.toneMappingExposure = exposure;
+    scene.environment = renderTarget.texture;
 
     controls = new MapControls(camera, renderer.domElement);
     controls.addEventListener('change', render);
@@ -241,7 +230,5 @@ function onWindowResize() {
 }
 
 function render() {
-    //const time = performance.now() * 0.001;
-    console.log("Rendering")
     renderer.render(scene, camera);
 }
