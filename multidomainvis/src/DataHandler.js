@@ -71,76 +71,38 @@ class DataHandler {
     }
 
     onWindDataLoaded(cellData, nodeData, cityOrigin, callback) {
-        // Initialise the arrays beforehand for efficiency
-        // Each cell triangle has three vertices (nodes), with
-        // three positional values, hence 9.
-        const positions = new Float32Array(nodeData.length * 3);
-        const normals = new Float32Array(nodeData.length * 3);
-        const colors = new Float32Array(nodeData.length * 3);
-        const indices = new Array(cellData.length * 3);
+        const worker = new Worker("src/windDataWorker.js");
+        worker.onmessage = e => {
+            const geometry = new THREE.BufferGeometry();
+            const colors = [];
+            for (let hex of e.data.colors) {
+                const color = new THREE.Color(hex);
+                colors.push(color.r, color.g, color.b);
+            }
+            geometry.setIndex(e.data.indices);
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(e.data.positions, 3));
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            geometry.setAttribute('normal', new THREE.Float32BufferAttribute(e.data.normals, 3));
+            const material = new THREE.MeshStandardMaterial({
+                color: 0xF5F5F5,
+                vertexColors: true
+            });
+            const mesh = new THREE.Mesh(geometry, material);
 
-        const columns = ['node 1', 'node 2', 'node 3'];
+            const colorbar = document.createElement('img');
+            colorbar.classList.add('legend');
+            colorbar.style.padding = '5px';
+            colorbar.src = "data/wind/surfaceLawson_option_0.png";
+            document.getElementById("legendContainer").append(colorbar);
 
-        const colorMap = [
-            0x0000FF, // A | Frequent sitting
-            0x00AAFF, // B | Occasional Sitting
-            0xAAFFFF, // C | Standing
-            0x55FF00, // D | Walking
-            0xFFFF00, // E | Unfomfortable
-            0xFF5500  // S | Unsafe
-        ].map(v=>new THREE.Color(v));
+            mesh.visible = false;
+            this.scene.add(mesh);
 
-        let node;
-        for (let i=0; i<nodeData.length; i++) {
-            node = nodeData[i];
-            for (let j=0; j<3; j++) {
-                positions[i*3 + j*3] = node.x - cityOrigin.x;
-                positions[i*3 + j*3 + 1] = node.z;
-                positions[i*3 + j*3 + 2] = - (node.y - cityOrigin.y);
-
-                normals[i*3 + j*3 + 1] = 1; // Y is up
+            if (callback) {
+                callback(mesh, colorbar);
             }
         }
-
-        let value, color, nodeID;
-        for (let i=0; i<cellData.length; i++) {
-            value = cellData[i]['Lawson LDDC'];
-
-            color = colorMap[value];
-
-            for (let j=0; j<3; j++) {
-                nodeID = cellData[i][columns[j]];
-                colors[nodeID * 3] = color.r;
-                colors[nodeID * 3 + 1] = color.g;
-                colors[nodeID * 3 + 2] = color.b;
-
-                indices[i*3 + j] = nodeID;
-            }
-        }
-
-        const geometry = new THREE.BufferGeometry();
-        geometry.setIndex(indices);
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
-        const material = new THREE.MeshStandardMaterial({
-            color: 0xF5F5F5,
-            vertexColors: true
-        });
-        const mesh = new THREE.Mesh(geometry, material);
-
-        const colorbar = document.createElement('img');
-        colorbar.classList.add('legend');
-        colorbar.style.padding = '5px';
-        colorbar.src = "data/wind/surfaceLawson_option_0.png";
-        document.getElementById("legendContainer").append(colorbar);
-
-        mesh.visible = false;
-        this.scene.add(mesh);
-
-        if (callback) {
-            callback(mesh, colorbar);
-        }
+        worker.postMessage([cellData, nodeData, cityOrigin]);
     }
 
     onNoiseDataLoaded(data, cityOrigin, callback) {
