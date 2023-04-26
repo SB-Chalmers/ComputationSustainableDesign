@@ -240,8 +240,13 @@ function onDataLoaded() {
     const gui = new GUI();
     gui.add(parameters, 'option', dataSpecs.map(d=>d.name)).onChange(updateVisibilities);
 
+
+    // Don't show gui for ignored data
+    const ignoredData = new URL(window.location.href).searchParams.getAll("ignoreData");
+    const dataParams = ['buildingOption', 'energy', 'noise', 'radiation', 'wind'].filter(p=>!ignoredData.includes(p))
+
     const folderData = gui.addFolder('Data');
-    for (let param of ['buildingOption', 'energy', 'noise', 'radiation', 'wind']) {
+    for (let param of dataParams) {
         folderData.add(parameters, param, true).onChange(updateVisibilities);
     }
 
