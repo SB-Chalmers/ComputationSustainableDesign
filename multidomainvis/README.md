@@ -36,7 +36,7 @@ This repository contains the source code and resources for the interactive WebGL
 
 Visit the live visualization at <https://sb-chalmers.github.io/ComputationSustainableDesign/multidomainvis/>
 
-![Example representation of the combined visualization](media/insert-image-path-here.png)
+![Example representation of the combined visualization](cover.png)
 
 Introduction
 ============
