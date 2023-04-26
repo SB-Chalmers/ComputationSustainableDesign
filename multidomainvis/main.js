@@ -24,7 +24,7 @@ let dataSets;
 
 // Paths loaded through web worker (CSVs) need to be
 // relative to the worker directory (src/)
-const dataSpecs = [
+let dataSpecs = [
     {
         name: 'Option 0',
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
@@ -173,6 +173,32 @@ function init() {
 
     const dataHandler = new DataHandler(scene, parameters);
     const csvLoader = new CSVLoader(3);
+
+    const searchParams = new URL(window.location.href).searchParams;
+
+    // Filter options to include only those specified
+    // with the "option" url parameter
+    const includedOptions = searchParams.getAll("option");
+    if (includedOptions.length > 0) {
+        const includedOptionNames = includedOptions.map(i => `Option ${i}`);
+        if (!includedOptionNames.includes(parameters.option)) {
+            // Make sure we have a selected option
+            parameters.option = includedOptionNames[0];
+        }
+        dataSpecs = dataSpecs.filter(d => includedOptionNames.includes(d.name))
+    }
+
+    const ignoreData = searchParams.getAll("ignoreData");
+    for (let d of dataSpecs) {
+        for (let dataSource of ignoreData) {
+            if (dataSource == "wind") {
+                delete d["windSurfaceCellPath"]
+                delete d["windSurfaceNodesPath"]
+            } else {
+                delete d[dataSource+"Path"]
+            }
+        }
+    }
 
     const loadingLog = document.getElementById("loadingLog");
     let nLoadingDatasets = dataSpecs.length;
