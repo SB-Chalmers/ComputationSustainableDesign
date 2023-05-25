@@ -30,8 +30,8 @@ let dataSpecs = [
         cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         noisePath: '../data/noise/option_0_Lden.csv',
         radiationPath: '../data/radiation/20230327_RadiationBaseCase.csv',
-        windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_0/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_0/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 1',
@@ -40,8 +40,8 @@ let dataSpecs = [
         energyPath: './data/energy/alt_1.csv',
         noisePath: '../data/noise/option_1_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption1_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_1/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_1/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_1/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_1/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 2',
@@ -49,8 +49,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_2.stl',
         noisePath: '../data/noise/option_2_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption2_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_2/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_2/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_2/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_2/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 3',
@@ -58,8 +58,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_3.stl',
         noisePath: '../data/noise/option_3_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption3_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_3/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_3/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_3/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_3/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 4',
@@ -67,8 +67,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_4.stl',
         noisePath: '../data/noise/option_4_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption4_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_4/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_4/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_4/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_4/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 5',
@@ -76,8 +76,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_5.stl',
         noisePath: '../data/noise/option_5_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption5_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_5/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_5/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_5/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_5/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 6',
@@ -85,8 +85,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_6.stl',
         noisePath: '../data/noise/option_6_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption6_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_6/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_6/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_6/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_6/WindroseSurfaceNodes_small.csv'
     },
     {
         name: 'Option 7',
@@ -94,8 +94,8 @@ let dataSpecs = [
         buildingOptionPath: './data/buildingOptions/option_7.stl',
         noisePath: '../data/noise/option_7_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption7_10mgrid.csv',
-        windSurfaceCellPath: '../data/wind/Option_7/WindroseSurfaceCell.csv',
-        windSurfaceNodesPath: '../data/wind/Option_7/WindroseSurfaceNodes.csv'
+        windSurfaceCellPath: '../data/wind/Option_7/WindroseSurfaceCell_small.csv',
+        windSurfaceNodesPath: '../data/wind/Option_7/WindroseSurfaceNodes_small.csv'
     }
 ]
 

@@ -19,9 +19,11 @@ onmessage = function(e) {
         0xFF5500  // S | Unsafe
     ];
 
+    const nodeMap = new Map();
     let node;
     for (let i=0; i<nodeData.length; i++) {
         node = nodeData[i];
+        nodeMap.set(node.ID, i);
         for (let j=0; j<3; j++) {
             positions[i*3 + j*3] = node.x - cityOrigin.x;
             positions[i*3 + j*3 + 1] = node.z;
@@ -36,7 +38,7 @@ onmessage = function(e) {
         value = cellData[i]['Lawson LDDC'];
 
         for (let j=0; j<3; j++) {
-            nodeID = cellData[i][columns[j]];
+            nodeID = nodeMap.get(cellData[i][columns[j]]);
             colors[nodeID] = colorMap[value];
             indices[i*3 + j] = nodeID;
         }
