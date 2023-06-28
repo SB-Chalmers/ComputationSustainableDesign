@@ -13,3 +13,5 @@ A collection of grasshopper scripts that have been created for various projects
 ![](/Grasshopper%20Scripts/LB_MRT_UTCI/media/coldest_day_option6.jpg)
 ## LB Radiation
 ![](/Grasshopper%20Scripts/LB_Radiation/media/base.jpg)
+# DecarbonAIte LCA LCC Optimizer
+![](/Grasshopper%20Scripts/DecarbonAIte_LCA_LCC_Optimizer/media/replace-me.jpg)
