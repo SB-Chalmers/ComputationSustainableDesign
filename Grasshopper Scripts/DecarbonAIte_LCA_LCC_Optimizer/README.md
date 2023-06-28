@@ -5,7 +5,7 @@ Date : DD-MM-YY
 Author : Jacob Forsberg  
 Contact :   
 
-## Subheading 1
+## Introduction
 
 ![AltTextForImage](media/image.png)
 
