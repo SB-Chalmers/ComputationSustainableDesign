@@ -2,7 +2,7 @@
 A short subtitle
 
 Date : DD-MM-YY
-Author : 
+Author : Jacob Forsberg
 Contact : 
 
 ## Subheading 1
