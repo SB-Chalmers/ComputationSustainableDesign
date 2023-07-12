@@ -14,4 +14,4 @@ A collection of grasshopper scripts that have been created for various projects
 ## LB Radiation
 ![](/Grasshopper%20Scripts/LB_Radiation/media/base.jpg)
 ## DecarbonAIte LCA LCC Optimizer
-![](/Grasshopper%20Scripts/DecarbonAIte_LCA_LCC_Optimizer/media/designexplorer.png)
+![](/Grasshopper%20Scripts/DecarbonAIte_LCA_LCC_Optimizer/media/designexplorer.PNG)
