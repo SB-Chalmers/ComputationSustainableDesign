@@ -13,7 +13,7 @@ Contact : fojacob@chalmers.se
 The 3D-model in Grasshopper is generated from a plan drawing in Rhino.
 
 The script requires a material database, construction database and an epw-file to run. 
-![Input](media/file_input.png)
+![Input](media/file_input.PNG)
 
 The construction database contains renovation packages for the buildings walls, roof, floor and windows. The material databse contains the properties of the materials that make up the constructions.
 
@@ -66,16 +66,16 @@ Below are examples of the format for the material-, and construction database
 ## Existing building
 
 The current materials in the buildings wall, roof, floor and windows is added as Honeybee materials
-![Materials](media/materials.png)
+![Materials](media/materials.PNG)
 
 The current building materials are combined with the renovation packages with a python script that gives all possible solutions for walls, roof, floor and windows combined.
-![Combination](media/combination.png)
+![Combination](media/combination.PNG)
 
 ## Results
 
 - The heating demand is computed using Energyplus
 
-![OpenStudio](media/openstudio.png)
+![OpenStudio](media/openstudio.PNG)
 
 - The total emboddied carbon and cost is divided into a construction part and an operational part
 
