@@ -15,17 +15,16 @@ This Python notebook provides a user-friendly approach to integrate wind pressur
 Table of Contents
 -----------------
 
-1.  [Introduction](https://chat.openai.com/#introduction)
-2.  [Prerequisites](https://chat.openai.com/#prerequisites)
-3.  [Script Structure](https://chat.openai.com/#script-structure)
-    -   [Importing Libraries](https://chat.openai.com/#importing-libraries)
-    -   [Setting Paths](https://chat.openai.com/#setting-paths)
-    -   [Defining Wind Pressure Coefficient Array](https://chat.openai.com/#defining-wind-pressure-coefficient-array)
-    -   [Adding Cp Values to Building Surfaces](https://chat.openai.com/#adding-cp-values-to-building-surfaces)
-    -   [Saving the Modified IDF](https://chat.openai.com/#saving-the-modified-idf)
-4.  [Conclusion](https://chat.openai.com/#conclusion)
-5.  [Getting Started](https://chat.openai.com/#getting-started)
-6.  [Contact](https://chat.openai.com/#contact)
+1.  Introduction
+2.  Prerequisites
+3.  Script Structure
+    -   Importing Libraries
+    -   Setting Paths
+    -   Defining Wind Pressure Coefficient Array
+    -   Adding Cp Values to Building Surfaces
+    -   Saving the Modified IDF
+4.  Conclusion
+6.  Contact
 
 Introduction
 ------------
