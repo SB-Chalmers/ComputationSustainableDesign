@@ -1,4 +1,4 @@
-# Computational Sustainable Design at Chalmers University of Technology
+Computational Sustainable Design at Chalmers University of Technology
 ===============
 
 This repository contains a collection of scripts and visualization tools spanning across multiple domains. Navigate through the folders to explore the content in detail. Each folder contains its own `README.md` file to provide insights about the content.
