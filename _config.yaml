@@ -1,0 +1,10 @@
+# Name of website
+title: "Computational Sustainable Design at Chalmers University of Technology"
+
+# Description
+description: "This repository contains a collection of scripts and visualization tools spanning across multiple domains. Navigate through the folders to explore the content in detail. Each folder contains its own `README.md` file to provide insights about the content."
+
+# Your name to show in the footer
+author: Sanjay Somanath
+
+theme: jekyll-theme-cayman
