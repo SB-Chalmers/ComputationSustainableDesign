@@ -1498,6 +1498,146 @@ ZoneInfiltration:DesignFlowRate,
     0,                        !- Velocity Term Coefficient
     0;                        !- Velocity Squared Term Coefficient
 
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:DETAILEDOPENING,
+    Block1:Zone1_Wall_2_0_0_0_0_0_Win,    !- Name
+    0.00014,                  !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    NonPivoted,               !- Type of Rectangular Large Vertical Opening LVO
+    0,                        !- Extra Crack Length or Height of Pivoting Axis
+    2,                        !- Number of Sets of Opening Factor Data
+    0,                        !- Opening Factor 1
+    0.65,                     !- Discharge Coefficient for Opening Factor 1
+    0,                        !- Width Factor for Opening Factor 1
+    0,                        !- Height Factor for Opening Factor 1
+    0,                        !- Start Height Factor for Opening Factor 1
+    1,                        !- Opening Factor 2
+    0.65,                     !- Discharge Coefficient for Opening Factor 2
+    1e-08,                    !- Width Factor for Opening Factor 2
+    1,                        !- Height Factor for Opening Factor 2
+    0,                        !- Start Height Factor for Opening Factor 2
+    0,                        !- Opening Factor 3
+    0,                        !- Discharge Coefficient for Opening Factor 3
+    0,                        !- Width Factor for Opening Factor 3
+    0,                        !- Height Factor for Opening Factor 3
+    0,                        !- Start Height Factor for Opening Factor 3
+    0,                        !- Opening Factor 4
+    0,                        !- Discharge Coefficient for Opening Factor 4
+    0,                        !- Width Factor for Opening Factor 4
+    0,                        !- Height Factor for Opening Factor 4
+    0;                        !- Start Height Factor for Opening Factor 4
+
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:DETAILEDOPENING,
+    Block1:Zone1_Wall_3_0_0_0_0_0_Win,    !- Name
+    0.00014,                  !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    NonPivoted,               !- Type of Rectangular Large Vertical Opening LVO
+    0,                        !- Extra Crack Length or Height of Pivoting Axis
+    2,                        !- Number of Sets of Opening Factor Data
+    0,                        !- Opening Factor 1
+    0.65,                     !- Discharge Coefficient for Opening Factor 1
+    0,                        !- Width Factor for Opening Factor 1
+    0,                        !- Height Factor for Opening Factor 1
+    0,                        !- Start Height Factor for Opening Factor 1
+    1,                        !- Opening Factor 2
+    0.65,                     !- Discharge Coefficient for Opening Factor 2
+    1e-08,                    !- Width Factor for Opening Factor 2
+    1,                        !- Height Factor for Opening Factor 2
+    0,                        !- Start Height Factor for Opening Factor 2
+    0,                        !- Opening Factor 3
+    0,                        !- Discharge Coefficient for Opening Factor 3
+    0,                        !- Width Factor for Opening Factor 3
+    0,                        !- Height Factor for Opening Factor 3
+    0,                        !- Start Height Factor for Opening Factor 3
+    0,                        !- Opening Factor 4
+    0,                        !- Discharge Coefficient for Opening Factor 4
+    0,                        !- Width Factor for Opening Factor 4
+    0,                        !- Height Factor for Opening Factor 4
+    0;                        !- Start Height Factor for Opening Factor 4
+
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:DETAILEDOPENING,
+    Block1:Zone1_Wall_4_0_0_0_0_0_Win,    !- Name
+    0.00014,                  !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    NonPivoted,               !- Type of Rectangular Large Vertical Opening LVO
+    0,                        !- Extra Crack Length or Height of Pivoting Axis
+    2,                        !- Number of Sets of Opening Factor Data
+    0,                        !- Opening Factor 1
+    0.65,                     !- Discharge Coefficient for Opening Factor 1
+    0,                        !- Width Factor for Opening Factor 1
+    0,                        !- Height Factor for Opening Factor 1
+    0,                        !- Start Height Factor for Opening Factor 1
+    1,                        !- Opening Factor 2
+    0.65,                     !- Discharge Coefficient for Opening Factor 2
+    1e-08,                    !- Width Factor for Opening Factor 2
+    1,                        !- Height Factor for Opening Factor 2
+    0,                        !- Start Height Factor for Opening Factor 2
+    0,                        !- Opening Factor 3
+    0,                        !- Discharge Coefficient for Opening Factor 3
+    0,                        !- Width Factor for Opening Factor 3
+    0,                        !- Height Factor for Opening Factor 3
+    0,                        !- Start Height Factor for Opening Factor 3
+    0,                        !- Opening Factor 4
+    0,                        !- Discharge Coefficient for Opening Factor 4
+    0,                        !- Width Factor for Opening Factor 4
+    0,                        !- Height Factor for Opening Factor 4
+    0;                        !- Start Height Factor for Opening Factor 4
+
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:DETAILEDOPENING,
+    Block1:Zone1_Wall_5_0_0_0_0_0_Win,    !- Name
+    0.00014,                  !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    NonPivoted,               !- Type of Rectangular Large Vertical Opening LVO
+    0,                        !- Extra Crack Length or Height of Pivoting Axis
+    2,                        !- Number of Sets of Opening Factor Data
+    0,                        !- Opening Factor 1
+    0.65,                     !- Discharge Coefficient for Opening Factor 1
+    0,                        !- Width Factor for Opening Factor 1
+    0,                        !- Height Factor for Opening Factor 1
+    0,                        !- Start Height Factor for Opening Factor 1
+    1,                        !- Opening Factor 2
+    0.65,                     !- Discharge Coefficient for Opening Factor 2
+    1e-08,                    !- Width Factor for Opening Factor 2
+    1,                        !- Height Factor for Opening Factor 2
+    0,                        !- Start Height Factor for Opening Factor 2
+    0,                        !- Opening Factor 3
+    0,                        !- Discharge Coefficient for Opening Factor 3
+    0,                        !- Width Factor for Opening Factor 3
+    0,                        !- Height Factor for Opening Factor 3
+    0,                        !- Start Height Factor for Opening Factor 3
+    0,                        !- Opening Factor 4
+    0,                        !- Discharge Coefficient for Opening Factor 4
+    0,                        !- Width Factor for Opening Factor 4
+    0,                        !- Height Factor for Opening Factor 4
+    0;                        !- Start Height Factor for Opening Factor 4
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    Block1:Zone1_Wall_2_0_0_0_0_0_Win.EN,    !- Name
+    6.5,                      !- External Node Height
+    Block1:Zone1_Wall_2_0_0_0_0_0_Win,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    Block1:Zone1_Wall_3_0_0_0_0_0_Win.EN,    !- Name
+    6.5,                      !- External Node Height
+    Block1:Zone1_Wall_3_0_0_0_0_0_Win,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    Block1:Zone1_Wall_4_0_0_0_0_0_Win.EN,    !- Name
+    6.5,                      !- External Node Height
+    Block1:Zone1_Wall_4_0_0_0_0_0_Win,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    Block1:Zone1_Wall_5_0_0_0_0_0_Win.EN,    !- Name
+    6.5,                      !- External Node Height
+    Block1:Zone1_Wall_5_0_0_0_0_0_Win,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
 AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTARRAY,
     Cp Data,                  !- Name
     0,                        !- Wind Direction 1
@@ -1510,7 +1650,7 @@ AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTARRAY,
     315;                      !- Wind Direction 8
 
 AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
-    Block1:Zone1_Roof_1_0_0,    !- Name
+    Block1:Zone1_Wall_2_0_0_0_0_0_Win,    !- Name
     Cp Data,                  !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
     -0.6,                     !- Wind Pressure Coefficient Value 1
     -0.5,                     !- Wind Pressure Coefficient Value 2
@@ -1522,7 +1662,7 @@ AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
     -0.5;                     !- Wind Pressure Coefficient Value 8
 
 AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
-    Block1:Zone1_Wall_2_0_0,    !- Name
+    Block1:Zone1_Wall_3_0_0_0_0_0_Win,    !- Name
     Cp Data,                  !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
     -0.6,                     !- Wind Pressure Coefficient Value 1
     -0.5,                     !- Wind Pressure Coefficient Value 2
@@ -1534,7 +1674,7 @@ AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
     -0.5;                     !- Wind Pressure Coefficient Value 8
 
 AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
-    Block1:Zone1_Wall_3_0_0,    !- Name
+    Block1:Zone1_Wall_4_0_0_0_0_0_Win,    !- Name
     Cp Data,                  !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
     -0.6,                     !- Wind Pressure Coefficient Value 1
     -0.5,                     !- Wind Pressure Coefficient Value 2
@@ -1546,19 +1686,7 @@ AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
     -0.5;                     !- Wind Pressure Coefficient Value 8
 
 AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
-    Block1:Zone1_Wall_4_0_0,    !- Name
-    Cp Data,                  !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
-    -0.6,                     !- Wind Pressure Coefficient Value 1
-    -0.5,                     !- Wind Pressure Coefficient Value 2
-    -0.4,                     !- Wind Pressure Coefficient Value 3
-    -0.5,                     !- Wind Pressure Coefficient Value 4
-    -0.6,                     !- Wind Pressure Coefficient Value 5
-    -0.5,                     !- Wind Pressure Coefficient Value 6
-    -0.4,                     !- Wind Pressure Coefficient Value 7
-    -0.5;                     !- Wind Pressure Coefficient Value 8
-
-AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
-    Block1:Zone1_Wall_5_0_0,    !- Name
+    Block1:Zone1_Wall_5_0_0_0_0_0_Win,    !- Name
     Cp Data,                  !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
     -0.6,                     !- Wind Pressure Coefficient Value 1
     -0.5,                     !- Wind Pressure Coefficient Value 2
@@ -2517,6 +2645,10 @@ Output:Meter,
 Output:Meter,
     InteriorLights:Electricity,    !- Key Name
     runperiod;                !- Reporting Frequency
+
+OUTPUT:SQLITE,
+    Simple,                   !- Option Type
+    JtoKWH;                   !- Unit Conversion for Tabular Data
 
 Output:EnvironmentalImpactFactors,
     Daily;                    !- Reporting Frequency
