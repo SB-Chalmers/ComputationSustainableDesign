@@ -6,7 +6,7 @@ This repository contains a collection of scripts and visualization tools spannin
 Contents
 --------
 
--   [Grasshopper Scripts](/#grasshopper-scripts)
+-   [Grasshopper Scripts](/#Grasshopper-scripts)
 -   [Python Scripts](/#python-scripts)
 -   [Multidomain Visualization](/#multidomainvis)
 
