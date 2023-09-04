@@ -16,5 +16,5 @@ A collection of grasshopper scripts that have been created for various projects
 ## DecarbonAIte LCA LCC Optimizer
 ![](/Grasshopper%20Scripts/DecarbonAIte_LCA_LCC_Optimizer/media/designexplorer.PNG)
 ## ACE405 BPS/LCA Script
-![ACE405 BPS/LCA Script](/ACE405_bps_lca_script/img/screenshot.png)
+![ACE405 BPS/LCA Script](ACE405_bps_lca_script/img/screenshot.png)
 
