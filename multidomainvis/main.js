@@ -27,7 +27,7 @@ let dataSets;
 let dataSpecs = [
     {
         name: 'Option 0',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         noisePath: '../data/noise/option_0_Lden.csv',
         radiationPath: '../data/radiation/20230327_RadiationBaseCase.csv',
         windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell_small.csv',
@@ -35,7 +35,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 1',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_1.stl',
         energyPath: './data/energy/alt_1.csv',
         noisePath: '../data/noise/option_1_Lden.csv',
@@ -45,7 +45,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 2',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_2.stl',
         noisePath: '../data/noise/option_2_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption2_10mgrid.csv',
@@ -54,7 +54,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 3',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_3.stl',
         noisePath: '../data/noise/option_3_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption3_10mgrid.csv',
@@ -63,7 +63,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 4',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_4.stl',
         noisePath: '../data/noise/option_4_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption4_10mgrid.csv',
@@ -72,7 +72,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 5',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_5.stl',
         noisePath: '../data/noise/option_5_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption5_10mgrid.csv',
@@ -81,7 +81,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 6',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_6.stl',
         noisePath: '../data/noise/option_6_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption6_10mgrid.csv',
@@ -90,7 +90,7 @@ let dataSpecs = [
     },
     {
         name: 'Option 7',
-        cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
+        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_7.stl',
         noisePath: '../data/noise/option_7_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption7_10mgrid.csv',
