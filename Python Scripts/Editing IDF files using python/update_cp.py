@@ -9,7 +9,7 @@ import os
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
-LOGGER = logging.getLogger('Adding CP Values to IDF')
+logger = logging.getLogger('Adding CP Values to IDF')
 
 # Constants
 IDF_PATH = 'data/in.idf'
