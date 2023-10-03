@@ -56,6 +56,7 @@ class DataSet {
         } else {
             console.log(`No cityData provided`);
             const cityOrigin = new THREE.Vector2(319189, 6396991); // Taken from CityModel.json
+            this.logFinished('energy');
             loadRemainingData(cityOrigin);
         }
 
