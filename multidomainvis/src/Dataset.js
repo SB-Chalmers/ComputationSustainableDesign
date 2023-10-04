@@ -1,16 +1,8 @@
 import * as THREE from 'three';
 import {STLLoader} from '../libs/STLLoader.js';
 
-async function getJSON(path) {
-    return fetch(path)
-        .then((response) => response.json())
-        .then((responseJson) => {
-            return responseJson
-        });
-}
-
 class DataSet {
-    constructor(name, dataHandler, cityModelPath,
+    constructor(name, dataHandler, cityModelData,
         buildingOptionPath, energyPath, noisePath,
         radiationPath, windSurfaceCellPath, windSurfaceNodesPath, csvLoader,
         onLoadingUpdate, onLoadingFinished
@@ -51,8 +43,8 @@ class DataSet {
             this.loadWindSurface(windSurfaceCellPath, windSurfaceNodesPath, cityOrigin);
         }
 
-        if (cityModelPath) {
-            this.loadEnergy(energyPath, cityModelPath, loadRemainingData);
+        if (cityModelData) {
+            this.loadEnergy(energyPath, cityModelData, loadRemainingData);
         } else {
             console.log(`No cityData provided`);
             const cityOrigin = new THREE.Vector2(319189, 6396991); // Taken from CityModel.json
@@ -88,20 +80,18 @@ class DataSet {
         }
     }
 
-    loadEnergy(energyPath, cityModelPath, callback) {
+    loadEnergy(energyPath, cityModelData, callback) {
         if (!energyPath) {
             console.warn(`No energy data provided for ${this.name}`);
-            getJSON(cityModelPath).then(j => {
-                const energyMap = new Map();
-                const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, (mesh, colorbar) => {
-                    this.objects.set('energy', mesh);
-                    if (colorbar) {
-                        this.legends.set('energy', colorbar);
-                    }
-                    this.logFinished('energy');
-                });
-                callback(cityOrigin);
+            const energyMap = new Map();
+            const cityOrigin = this.dataHandler.onCityDataLoaded(cityModelData, energyMap, (mesh, colorbar) => {
+                this.objects.set('energy', mesh);
+                if (colorbar) {
+                    this.legends.set('energy', colorbar);
+                }
+                this.logFinished('energy');
             });
+            callback(cityOrigin);
             return;
         }
         // Need to know energy data first to color buildings
@@ -113,14 +103,12 @@ class DataSet {
                     energyMap.set(row.ID, row);
                 }
 
-                getJSON(cityModelPath).then(j => {
-                    const cityOrigin = this.dataHandler.onCityDataLoaded(j, energyMap, (mesh, colorbar) => {
-                        this.objects.set('energy', mesh);
-                        this.legends.set('energy', colorbar);
-                        this.logFinished('energy');
-                    });
-                    callback(cityOrigin);
+                const cityOrigin = this.dataHandler.onCityDataLoaded(cityModelData, energyMap, (mesh, colorbar) => {
+                    this.objects.set('energy', mesh);
+                    this.legends.set('energy', colorbar);
+                    this.logFinished('energy');
                 });
+                callback(cityOrigin);
             },
         });
     }
