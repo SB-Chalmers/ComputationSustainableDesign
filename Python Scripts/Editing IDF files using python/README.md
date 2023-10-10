@@ -37,6 +37,7 @@ Prerequisites
 -   Basic Python knowledge.
 -   Installed version of EnergyPlus.
 -   `eppy` Python library. Installation: `pip install eppy`.
+-   `plotly` Python library. Installation: `pip install plotly`.
 
 Script Structure
 ----------------
@@ -56,8 +57,16 @@ Getting Started
 ---------------
 
 1.  Clone this repository or download the notebook.
-2.  Ensure you have the required prerequisites.
-3.  Open the notebook using Jupyter and follow the step-by-step guide.
+2. Install Conda 
+3. Run the following in terminal
+
+```
+conda env create -f EP_environment.yml
+conda activate EP
+```
+
+4. Run the notebook `eppy_advanced_editing.ipynb`  
+
 
 Contact
 -------

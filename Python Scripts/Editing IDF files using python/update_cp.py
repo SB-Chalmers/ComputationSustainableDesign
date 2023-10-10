@@ -6,6 +6,7 @@ import pandas as pd
 from scipy.spatial import cKDTree
 import logging
 import os
+import numpy as np
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -15,6 +16,10 @@ logger = logging.getLogger('Adding CP Values to IDF')
 IDF_PATH = 'data/in.idf'
 IDD_PATH = 'idd/Energy+_22_2_0.idd'
 CP_PATH = 'data/Cp.csv'
+
+X_TRANS = 750
+Y_TRANS = 900
+Z_TRANS = 0
 
 def path_checker(IDF_PATH, IDD_PATH, CP_PATH):
     """Checks if the paths are valid"""
@@ -56,7 +61,7 @@ def add_wind_pressure_coefficients_array(idf1):
                                 Wind_Direction_8 = 315)
     return wind_pressure_coefficient_array
     
-def vectorize_points(cp_path = CP_PATH, x_trans = None, y_trans = None, z_trans = None):
+def vectorize_points(cp_path, x_trans, y_trans, z_trans):
     """Vectorizes the points from the Cp.csv file"""
     logger.info(f'Vectorizing points from {cp_path}')
     cp_data = pd.read_csv(cp_path)
@@ -72,30 +77,21 @@ def vectorize_points(cp_path = CP_PATH, x_trans = None, y_trans = None, z_trans 
     for i, angles in enumerate(cp_data['angle'].unique()):
         coords_df['c_p_{}'.format(angles)] = cp_list[i]
     # Extract just the xyz for cp0
-    xyz_df = coords_df[['x', 'y', 'z','c_p_0']]
-    sampled_df = coords_df[['x', 'y', 'z','c_p_0']].copy()
-
-    logger.info('Translating points')
-    # Define translation values to align the two dataframes
-    x_trans = 851.9646-101.854
-    y_trans = 883.6051+16.43799
-    z_trans = 69.24877-72.39
-
-    # Fine tuning
-    point_A = (920.479730342372, 936.878514625527, 58.3200021362305)
-    point_B = (920.59058, 936.92212, 58.17876999999999)
+    points_df = coords_df[['x', 'y', 'z','c_p_0']]
+    xyz_df = coords_df.copy()
+    logger.info(f'Translating points in the Cp.csv file by {x_trans}, {y_trans} and {z_trans}')
 
     # Add translate values to the sampled_df
-    sampled_df['x'] += x_trans + point_B[0] - point_A[0]
-    sampled_df['y'] += y_trans + point_B[1] - point_A[1]
-    sampled_df['z'] += z_trans + point_B[2] - point_A[2]
+    xyz_df['x'] += x_trans
+    xyz_df['y'] += y_trans
+    xyz_df['z'] += z_trans
 
     # Convert DataFrame to a NumPy array
-    coords_array = coords_df[['x', 'y', 'z']].to_numpy()
+    xyz_array = xyz_df[['x', 'y', 'z']].to_numpy()
     logger.info('Building KDTree')
     # Build a KDTree for faster nearest-neighbor search
-    kdtree = cKDTree(coords_array)
-    return kdtree, coords_df
+    kdtree = cKDTree(xyz_array)
+    return kdtree, xyz_df
 
 def get_cp(surface, kdtree, coords_df, threshold=None):   
     vertices = surface.coords    
@@ -118,41 +114,91 @@ def fetch_surfaces(idf1):# Sample cp values
 
 
 
-def plot_fenestration(fenestration_objects):
-    # Extract coordinates using the surface.coords() method
-    points = [coord for surface in fenestration_objects for coord in surface.coords]
-    points_array = np.array(points)
-
+def plot_cfd_values(xyz_df):
     fig = go.Figure()
-
-    # Scatter3D from sampled_df
     fig.add_trace(go.Scatter3d(
-        x=sampled_df['x'], y=sampled_df['y'], z=sampled_df['z'],
+        x=xyz_df['x'], y=xyz_df['y'], z=xyz_df['z'],
         mode='markers',
-        marker=dict(size=2, color='red')
+        marker=dict(
+            size=2,
+            color=xyz_df['c_p_0'],
+            colorscale='Viridis',
+            colorbar=dict(title='c_p_0'),
+        )
     ))
+    fig.update_layout(
+        title="CP Values from CFD Simulation",
+        scene=dict(
+            xaxis_title="X", 
+            yaxis_title="Y", 
+            zaxis_title="Z", zaxis_range=[-50,250])
+    )
+    fig.show()
 
-    # Scatter3D from points_array
+def plot_windows_from_idf(points_array):
+    fig = go.Figure()
     fig.add_trace(go.Scatter3d(
         x=points_array[:,0], y=points_array[:,1], z=points_array[:,2],
         mode='markers',
         marker=dict(size=2, color='blue')
     ))
-
-    fig.update_layout(scene=dict(
-        xaxis_title="X", 
-        yaxis_title="Y", 
-        zaxis_title="Z", zaxis_range=[-50,250])
+    fig.update_layout(
+        title="Windows from IDF Object",
+        scene=dict(
+            xaxis_title="X",
+            yaxis_title="Y",
+            zaxis_title="Z",
+            zaxis_range=[-50,250])
     )
-
     fig.show()
+
+def plot_combined(xyz_df, points_array):
+    fig = go.Figure()
+    # CFD points
+    fig.add_trace(go.Scatter3d(
+        x=xyz_df['x'], y=xyz_df['y'], z=xyz_df['z'],
+        mode='markers',
+        marker=dict(
+            size=2,
+            color='red'
+        )
+    ))
+    # IDF points
+    fig.add_trace(go.Scatter3d(
+        x=points_array[:,0], y=points_array[:,1], z=points_array[:,2],
+        mode='markers',
+        marker=dict(size=2, color='blue')
+    ))
+    fig.update_layout(
+        title="Combined Plot of Values from CFD and IDF",
+        scene=dict(
+            xaxis_title="X",
+            yaxis_title="Y",
+            zaxis_title="Z",
+            zaxis_range=[-50,250])
+    )
+    fig.show()
+
+def plot_objects(fenestration_objects, xyz_df):
+    points = [coord for surface in fenestration_objects for coord in surface.coords]
+    points_array = np.array(points)
+
+    # Plot 1
+    plot_cfd_values(xyz_df)
+    # Plot 2
+    plot_windows_from_idf(points_array)
+    # Plot 3
+    plot_combined(xyz_df, points_array)
 
 
 def add_cp_fenestration(idf1, fenestration_objects,wind_pressure_coefficient_array, kdtree, coords_df):
     node_height = 6.5 # Placeholder
     opening_array = []
     null_cp_counter = 0
-    logger.info('Adding CP for fenestration')
+    logger.info('Adding AirflowNetwork:MultiZone:WindPressureCoefficientValues for fenestration')
+    logger.info('AirflowNetwork:MultiZone:ExternalNode for fenestration')
+    logger.info('AirflowNetwork:MultiZone:Surface for fenestration')
+    logger.info('AirflowNetwork:MultiZone:Component:DetailedOpening for fenestration')
     for i, surface in enumerate(fenestration_objects):
         if surface.View_Factor_to_Ground!=0:
             #print(f'Adding wind pressure coefficients for {surface.Name}')
@@ -288,7 +334,7 @@ def main():
     idf1 = IDF(IDF_PATH)
     update_idf_params(idf1)
     wind_pressure_coefficient_array = add_wind_pressure_coefficients_array(idf1)
-    kdtree, coords_df = vectorize_points()
+    kdtree, coords_df = vectorize_points(CP_PATH, X_TRANS,Y_TRANS,Z_TRANS)
     building_objects, fenestration_objects = fetch_surfaces(idf1)
     add_cp_fenestration(idf1, fenestration_objects, wind_pressure_coefficient_array, kdtree=kdtree, coords_df=coords_df)
     building_objects_no_external_node_name = get_surface_no_node(idf1,building_objects)
