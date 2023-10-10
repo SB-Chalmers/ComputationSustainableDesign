@@ -22,12 +22,14 @@ const parameters = {
 
 let dataSets;
 
+// Uncomment this if you want to load a CityModel from a path in this directory
+//const cityModelPath = '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json'
+
 // Paths loaded through web worker (CSVs) need to be
 // relative to the worker directory (src/)
 let dataSpecs = [
     {
         name: 'Option 0',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         noisePath: '../data/noise/option_0_Lden.csv',
         radiationPath: '../data/radiation/20230327_RadiationBaseCase.csv',
         windSurfaceCellPath: '../data/wind/Option_0/WindroseSurfaceCell_small.csv',
@@ -35,7 +37,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 1',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_1.stl',
         energyPath: './data/energy/alt_1.csv',
         noisePath: '../data/noise/option_1_Lden.csv',
@@ -45,7 +46,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 2',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_2.stl',
         noisePath: '../data/noise/option_2_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption2_10mgrid.csv',
@@ -54,7 +54,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 3',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_3.stl',
         noisePath: '../data/noise/option_3_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption3_10mgrid.csv',
@@ -63,7 +62,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 4',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_4.stl',
         noisePath: '../data/noise/option_4_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption4_10mgrid.csv',
@@ -72,7 +70,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 5',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_5.stl',
         noisePath: '../data/noise/option_5_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption5_10mgrid.csv',
@@ -81,7 +78,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 6',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_6.stl',
         noisePath: '../data/noise/option_6_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption6_10mgrid.csv',
@@ -90,7 +86,6 @@ let dataSpecs = [
     },
     {
         name: 'Option 7',
-        //cityModelPath: '../Grasshopper Scripts/DTCC_CITYJSON_parser/CityModel.json',
         buildingOptionPath: './data/buildingOptions/option_7.stl',
         noisePath: '../data/noise/option_7_Lden.csv',
         radiationPath: '../data/radiation/20230328_RadiationOption7_10mgrid.csv',
@@ -117,9 +112,46 @@ document.addEventListener('keydown', (e) => {
     }
   });
 
-init();
+// Try to load the cityModel from the path declared above.
+// If it doesn't work, ask the user to provide the file.
+// The user may also ignore the missing file and continue.
+try {
+    // Load json from path
+    fetch(cityModelPath)
+        .then(response => response.json())
+        .then(cityModelData => {
+            console.log(`Loaded ${cityModelPath}`);
+            init(cityModelData);
+        }
+    );
+} catch (error) {
+    const cityModelDialog = document.getElementById("cityModelDialog");
+    const fileInput = document.getElementById("cityModelFile");
+    const ignoreCityModelButton = document.getElementById("ignoreCityModelUpload");
 
-function init() {
+    // Show the city model dialog
+    cityModelDialog.style.display = 'block';
+
+    // When a file is uploaded
+    fileInput.onchange = () => {
+        new Response(fileInput.files[0]).json().then(cityModelData => {
+            cityModelDialog.style.display = 'none';
+            console.log(`Loaded provided cityModel file`);
+            init(cityModelData);
+          }, err => {
+            alert(`Could not parse the provided cityModel file:\n${err}`);
+        });
+    }
+
+    // When the ignore button is clicked
+    ignoreCityModelButton.onclick = () => {
+        cityModelDialog.style.display = 'none';
+        console.log("Ignoring missing cityModel file")
+        init();
+    }
+}
+
+function init(cityModelData) {
     container = document.getElementById('container');
 
     renderer = new THREE.WebGLRenderer();
@@ -204,7 +236,7 @@ function init() {
     let nLoadingDatasets = dataSpecs.length;
     dataSets = dataSpecs.map(d=>
         new DataSet(
-            d.name, dataHandler, d.cityModelPath, d.buildingOptionPath,
+            d.name, dataHandler, cityModelData, d.buildingOptionPath,
             d.energyPath, d.noisePath, d.radiationPath,
             d.windSurfaceCellPath, d.windSurfaceNodesPath,
             csvLoader,

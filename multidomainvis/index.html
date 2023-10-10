@@ -30,6 +30,11 @@
 				Loading data, this may take a few minutes...<br>
 				<ul id="loadingLog"></ul>
 				<progress style="width: 100%;"></progress>
+				<div  id="cityModelDialog" style="padding: 2em; background: #ff000071; display: none;">
+					<p>No CityModel.json file found. Upload one now, or ignore and load remaining data?</p>
+					<input type="file" id="cityModelFile">
+					<button type="button" id="ignoreCityModelUpload">Ignore</button>
+				</div>
 			</div>
 		</div>
 		<div id="legendContainer" style="position: fixed; margin: 10px; overflow-y: auto; display: block ruby; bottom: 0;"></div>
@@ -49,5 +54,6 @@
 
 		<script type="module" src="main.js"></script>
 		<script src="libs/papaparse.min.js"></script>
+
 	</body>
 </html>
