@@ -17,7 +17,7 @@ const parameters = {
     noise: true,
     wind: true,
     radiation: true,
-    option: "Option 0"
+    option: "Option 1"
 };
 
 let dataSets;
@@ -154,44 +154,45 @@ try {
 function init(cityModelData) {
     container = document.getElementById('container');
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({antialias: true , alpha: true});
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-    camera.position.set(700, 300, -1800);
+    camera.position.set(915, 227, -1352);
 
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
 
-    sun = new THREE.Vector3();
-    const sky = new Sky();
-    sky.scale.setScalar(10000);
-    scene.add(sky);
+    let hemilight = new THREE.HemisphereLight(0x808080, 0x606060);
+    hemilight.intensity = 3;
 
-    const skyUniforms = sky.material.uniforms;
+    const light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(0, 0, 0);
+    light.target.position.set(830, 0, -1050);
+    light.intensity = 4;
+    light.castShadow = true;
+    light.shadow.radius = 32;
+    light.shadow.camera.top = 300;
+    light.shadow.camera.bottom = -300;
+    light.shadow.camera.right = 300;
+    light.shadow.camera.left = - 300;
+    light.shadow.camera.far = 1300;
+    light.shadow.mapSize.set(8192, 8192);
 
-    skyUniforms['turbidity'].value = 10;
-    skyUniforms['rayleigh'].value = 2;
-    skyUniforms['mieCoefficient'].value = 0.005;
-    skyUniforms['mieDirectionalG'].value = 0.8;
+    light.target.updateMatrixWorld();
+    light.shadow.camera.updateProjectionMatrix();
 
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    let renderTarget;
-
-    const phi = THREE.MathUtils.degToRad(73);
-    const theta = THREE.MathUtils.degToRad(80);
-    const exposure = 0.7;
-    sun.setFromSphericalCoords(1, phi, theta);
-    sky.material.uniforms['sunPosition'].value.copy(sun);
-    if (renderTarget !== undefined) renderTarget.dispose();
-    renderTarget = pmremGenerator.fromScene(sky);
-    renderer.toneMappingExposure = exposure;
-    scene.environment = renderTarget.texture;
+    let defaultLight = new THREE.Group();
+    defaultLight.add(hemilight);
+    defaultLight.add(light);
+    defaultLight.position.set(700, 500, -1800);
+    scene.add(defaultLight);
 
     controls = new MapControls(camera, renderer.domElement);
     controls.addEventListener('change', render);

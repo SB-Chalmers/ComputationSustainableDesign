@@ -16,6 +16,8 @@ class DataHandler {
         geometry.scale(1,1,-1);
         const material = new THREE.MeshStandardMaterial({color: 0xAAAAAA, transparent: true, opacity: 0.8, flatShading: true});
         const mesh = new THREE.Mesh(geometry, material);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
 
         mesh.visible = false;
         this.scene.add(mesh);
@@ -87,6 +89,9 @@ class DataHandler {
                 vertexColors: true
             });
             const mesh = new THREE.Mesh(geometry, material);
+
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
 
             const colorbar = document.createElement('img');
             colorbar.classList.add('legend');
@@ -168,6 +173,8 @@ class DataHandler {
             }
             const material = new THREE.MeshStandardMaterial({color});
             const mesh = new THREE.Mesh(geometry, material);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
             mesh.position.z = building.GroundHeight;
             buildingGroup.add(mesh);
         }
