@@ -2,14 +2,13 @@ import * as THREE from 'three';
 
 import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
-import {Sky} from './libs/Sky.js';
 import {DataHandler} from './src/DataHandler.js';
 import {DataSet} from './src/Dataset.js';
 import {CSVLoader} from './src/CSVLoader.js';
 
 let container;
 let camera, scene, renderer;
-let controls, sun;
+let controls;
 
 const parameters = {
     buildingOption: true,
