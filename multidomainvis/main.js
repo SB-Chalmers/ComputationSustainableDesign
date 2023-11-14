@@ -5,9 +5,10 @@ import {MapControls} from './libs/OrbitControls.js';
 import {DataHandler} from './src/DataHandler.js';
 import {DataSet} from './src/Dataset.js';
 import {CSVLoader} from './src/CSVLoader.js';
+import {XRButton} from './libs/XRButton.js';
 
 let container;
-let camera, scene, renderer;
+let dolly, camera, scene, renderer;
 let controls;
 
 const parameters = {
@@ -150,8 +151,26 @@ try {
     }
 }
 
+function enableVR() {
+    renderer.xr.enabled = true;
+    document.body.appendChild(XRButton.createButton(renderer));
+    renderer.setAnimationLoop( function () {
+        renderer.render( scene, camera );
+    } );
+
+
+    scene.background = new THREE.Color(0x00000,0);
+
+    dolly = new THREE.Group();
+    dolly.position.set(915, 227, -1352);
+    camera.position.set(0,0,0);
+    scene.add(dolly);
+    dolly.add(camera);
+}
+
 function init(cityModelData) {
     container = document.getElementById('container');
+    container.style ="background:none";
 
     renderer = new THREE.WebGLRenderer({antialias: true , alpha: true});
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -160,10 +179,15 @@ function init(cityModelData) {
     renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
-
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+
     camera.position.set(915, 227, -1352);
+
+    const useVR = new URLSearchParams(window.location.search).get('vr');
+    if (useVR !== null && useVR !== "false") {
+        enableVR();
+    }
 
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);

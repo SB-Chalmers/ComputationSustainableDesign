@@ -36,6 +36,8 @@ This repository contains the source code and resources for the interactive WebGL
 
 Visit the live visualization at <https://sb-chalmers.github.io/ComputationSustainableDesign/multidomainvis/>
 
+You may also explore the visualisation in VR using WebXR at <https://sb-chalmers.github.io/ComputationSustainableDesign/multidomainvis?vr>
+
 ![Example representation of the combined visualization](cover.png)
 
 Introduction
