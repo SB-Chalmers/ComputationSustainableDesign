@@ -4,8 +4,9 @@ import {Lut} from '../libs/Lut.js';
 import {drawParticles, createColorbar} from './draw.js'
 
 class DataHandler {
-    constructor(scene) {
+    constructor(scene, isVR) {
         this.scene = scene;
+        this.isVR = isVR;
     }
 
     onBuildingOptionDataLoaded(geometry, cityOrigin, callback) {
@@ -56,7 +57,7 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const mesh = drawParticles(positions, colors, 15, true);
+        const mesh = drawParticles(positions, colors, this.isVR ? 0.15 : 15, true);
 
         const title = dataSet.name === "Option 0" ? "Radiation, base case (kWh/m<sup>2</sup>)" : "Radiation, difference from base case (kWh/m<sup>2</sup>)"
         const colorbar = createColorbar(lut, title);
@@ -135,7 +136,7 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const mesh = drawParticles(positions, colors, 4);
+        const mesh = drawParticles(positions, colors, this.isVR ? 0.04 : 4);
         mesh.visible = false;
         this.scene.add(mesh);
 

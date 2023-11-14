@@ -154,18 +154,16 @@ try {
 function enableVR() {
     renderer.xr.enabled = true;
     document.body.appendChild(XRButton.createButton(renderer));
-    renderer.setAnimationLoop( function () {
-        renderer.render( scene, camera );
+    renderer.setAnimationLoop(function () {
+        renderer.render(scene, camera);
     } );
-
 
     scene.background = new THREE.Color(0x00000,0);
 
     dolly = new THREE.Group();
-    dolly.position.set(915, 227, -1352);
-    camera.position.set(0,0,0);
-    scene.add(dolly);
+    dolly.position.set(800, 100, -1000);
     dolly.add(camera);
+    scene.add(dolly);
 }
 
 function init(cityModelData) {
@@ -180,13 +178,14 @@ function init(cityModelData) {
     container.appendChild(renderer.domElement);
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.001, 20000);
 
-    camera.position.set(915, 227, -1352);
 
     const useVR = new URLSearchParams(window.location.search).get('vr');
     if (useVR !== null && useVR !== "false") {
         enableVR();
+    } else {
+        camera.position.set(915, 227, -1352);
     }
 
     const axesHelper = new THREE.AxesHelper(5);
@@ -227,7 +226,7 @@ function init(cityModelData) {
 
     window.addEventListener('resize', onWindowResize);
 
-    const dataHandler = new DataHandler(scene, parameters);
+    const dataHandler = new DataHandler(scene, useVR);
     const csvLoader = new CSVLoader(3);
 
     const searchParams = new URL(window.location.href).searchParams;
