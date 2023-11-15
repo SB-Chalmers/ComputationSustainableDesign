@@ -6,6 +6,7 @@ import {DataHandler} from './src/DataHandler.js';
 import {DataSet} from './src/Dataset.js';
 import {CSVLoader} from './src/CSVLoader.js';
 import {XRButton} from './libs/XRButton.js';
+import {XREstimatedLight} from './libs/XREstimatedLight.js'
 
 let container;
 let dolly, camera, scene, renderer;
@@ -151,9 +152,9 @@ try {
     }
 }
 
-function enableVR(scale) {
+function enableVR(scale, defaultLight) {
     renderer.xr.enabled = true;
-    document.body.appendChild(XRButton.createButton(renderer));
+    document.body.appendChild(XRButton.createButton(renderer, {optionalFeatures: ['light-estimation']}));
     renderer.setAnimationLoop(function () {
         renderer.render(scene, camera);
     } );
@@ -165,6 +166,22 @@ function enableVR(scale) {
     dolly.position.multiplyScalar(scale);
     dolly.add(camera);
     scene.add(dolly);
+
+    const xrLight = new XREstimatedLight(renderer);
+
+    xrLight.addEventListener('estimationstart', () => {
+        scene.add(xrLight);
+        scene.remove(defaultLight);
+        if (xrLight.environment) {
+            scene.environment = xrLight.environment;
+        }
+    });
+
+    xrLight.addEventListener('estimationend', () => {
+        scene.add(defaultLight);
+        scene.remove(xrLight);
+        scene.environment = defaultEnvironment;
+    });
 }
 
 function init(cityModelData) {
@@ -194,12 +211,6 @@ function init(cityModelData) {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2000);
 
-    if (useVR) {
-        enableVR(scale);
-    } else {
-        camera.position.set(915, 227, -1352);
-        camera.position.multiplyScalar(scale);
-    }
 
     let hemilight = new THREE.HemisphereLight(0x808080, 0x606060);
     hemilight.intensity = 3;
@@ -227,6 +238,13 @@ function init(cityModelData) {
     defaultLight.position.set(700, 500, -1800);
     defaultLight.position.multiplyScalar(scale);
     scene.add(defaultLight);
+
+    if (useVR) {
+        enableVR(scale, defaultLight);
+    } else {
+        camera.position.set(915, 227, -1352);
+        camera.position.multiplyScalar(scale);
+    }
 
     controls = new MapControls(camera, renderer.domElement);
     controls.addEventListener('change', render);
