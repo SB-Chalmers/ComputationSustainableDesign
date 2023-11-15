@@ -151,7 +151,7 @@ try {
     }
 }
 
-function enableVR() {
+function enableVR(scale) {
     renderer.xr.enabled = true;
     document.body.appendChild(XRButton.createButton(renderer));
     renderer.setAnimationLoop(function () {
@@ -161,14 +161,27 @@ function enableVR() {
     scene.background = new THREE.Color(0x00000,0);
 
     dolly = new THREE.Group();
-    dolly.position.set(800, 100, -1000);
+    dolly.position.set(800, 10, -1000);
+    dolly.position.multiplyScalar(scale);
     dolly.add(camera);
     scene.add(dolly);
 }
 
 function init(cityModelData) {
+    const params = new URLSearchParams(window.location.search);
+    const useVR = params.get('vr') !== null &&  params.get('vr') !== "false";
+    let scale = params.get("scale");
+
+    if (scale === null) {
+        if (useVR) {
+            scale = 1e-2;
+        } else {
+            scale = 1;
+        }
+    }
+
     container = document.getElementById('container');
-    container.style ="background:none";
+    container.style = "background:none";
 
     renderer = new THREE.WebGLRenderer({antialias: true , alpha: true});
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -176,20 +189,17 @@ function init(cityModelData) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
+    renderer.domElement.style = "background:none";
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.001, 20000);
+    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2000);
 
-
-    const useVR = new URLSearchParams(window.location.search).get('vr');
-    if (useVR !== null && useVR !== "false") {
-        enableVR();
+    if (useVR) {
+        enableVR(scale);
     } else {
         camera.position.set(915, 227, -1352);
+        camera.position.multiplyScalar(scale);
     }
-
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
 
     let hemilight = new THREE.HemisphereLight(0x808080, 0x606060);
     hemilight.intensity = 3;
@@ -197,14 +207,15 @@ function init(cityModelData) {
     const light = new THREE.DirectionalLight(0xffffff);
     light.position.set(0, 0, 0);
     light.target.position.set(830, 0, -1050);
+    light.target.position.multiplyScalar(scale);
     light.intensity = 4;
     light.castShadow = true;
-    light.shadow.radius = 32;
-    light.shadow.camera.top = 300;
-    light.shadow.camera.bottom = -300;
-    light.shadow.camera.right = 300;
-    light.shadow.camera.left = - 300;
-    light.shadow.camera.far = 1300;
+    light.shadow.radius = 32 * scale;
+    light.shadow.camera.top = 300 * scale;
+    light.shadow.camera.bottom = -300 * scale;
+    light.shadow.camera.right = 300 * scale;
+    light.shadow.camera.left = - 300 * scale;
+    light.shadow.camera.far = 1300 * scale;
     light.shadow.mapSize.set(8192, 8192);
 
     light.target.updateMatrixWorld();
@@ -214,19 +225,21 @@ function init(cityModelData) {
     defaultLight.add(hemilight);
     defaultLight.add(light);
     defaultLight.position.set(700, 500, -1800);
+    defaultLight.position.multiplyScalar(scale);
     scene.add(defaultLight);
 
     controls = new MapControls(camera, renderer.domElement);
     controls.addEventListener('change', render);
     controls.maxPolarAngle = Math.PI * 0.495;
     controls.target.set(800, 50, -1000);
-    controls.minDistance = 1.0;
-    controls.maxDistance = 5000.0;
+    controls.target.multiplyScalar(scale);
+    controls.minDistance = 1.0 * scale;
+    controls.maxDistance = 5000.0 * scale;
     controls.update();
 
     window.addEventListener('resize', onWindowResize);
 
-    const dataHandler = new DataHandler(scene, useVR);
+    const dataHandler = new DataHandler(scene, scale);
     const csvLoader = new CSVLoader(3);
 
     const searchParams = new URL(window.location.href).searchParams;

@@ -4,9 +4,9 @@ import {Lut} from '../libs/Lut.js';
 import {drawParticles, createColorbar} from './draw.js'
 
 class DataHandler {
-    constructor(scene, isVR) {
+    constructor(scene, scale = 1) {
         this.scene = scene;
-        this.isVR = isVR;
+        this.scale = scale;
     }
 
     onBuildingOptionDataLoaded(geometry, cityOrigin, callback) {
@@ -17,6 +17,8 @@ class DataHandler {
         geometry.scale(1,1,-1);
         const material = new THREE.MeshStandardMaterial({color: 0xAAAAAA, transparent: true, opacity: 0.8, flatShading: true});
         const mesh = new THREE.Mesh(geometry, material);
+        mesh.scale.multiplyScalar(this.scale);
+        mesh.position.multiplyScalar(this.scale);
         mesh.castShadow = true;
         mesh.receiveShadow = true;
 
@@ -43,9 +45,9 @@ class DataHandler {
             }
 
             positions.push(
-                d["x"], // - 24.850166 , // Magic grid offset number
-                51.3,
-                - (d["y"]), // - 32.03199), // Magic grid offset number
+                d["x"] * this.scale, // - 24.850166 , // Magic grid offset number
+                51.3 * this.scale,
+                - (d["y"]) * this.scale, // - 32.03199), // Magic grid offset number
             );
 
             values.push(value);
@@ -57,7 +59,7 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const mesh = drawParticles(positions, colors, this.isVR ? 0.15 : 15, true);
+        const mesh = drawParticles(positions, colors, 15 * this.scale, true);
 
         const title = dataSet.name === "Option 0" ? "Radiation, base case (kWh/m<sup>2</sup>)" : "Radiation, difference from base case (kWh/m<sup>2</sup>)"
         const colorbar = createColorbar(lut, title);
@@ -85,6 +87,7 @@ class DataHandler {
             geometry.setAttribute('position', new THREE.Float32BufferAttribute(e.data.positions, 3));
             geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
             geometry.setAttribute('normal', new THREE.Float32BufferAttribute(e.data.normals, 3));
+            geometry.scale(this.scale, this.scale, this.scale);
             const material = new THREE.MeshStandardMaterial({
                 color: 0xF5F5F5,
                 vertexColors: true
@@ -122,9 +125,9 @@ class DataHandler {
                 continue;
             }
             positions.push(
-                x - cityOrigin.x,
-                59.7,
-                - (y - cityOrigin.y)
+                (x - cityOrigin.x)*this.scale,
+                (59.7)*this.scale,
+                (- (y - cityOrigin.y))*this.scale
             );
             noiseVals.push(noiseVal);
         }
@@ -136,7 +139,7 @@ class DataHandler {
             colors.push(color.r, color.g, color.b);
         }
 
-        const mesh = drawParticles(positions, colors, this.isVR ? 0.04 : 4);
+        const mesh = drawParticles(positions, colors, 4 * this.scale);
         mesh.visible = false;
         this.scene.add(mesh);
 
@@ -160,11 +163,14 @@ class DataHandler {
         const buildingGroup = new THREE.Group();
 
         for (let building of buildings) {
-            const points = building.Footprint.map(p => new THREE.Vector2(p.x, p.y));
+            const points = building.Footprint.map(p => new THREE.Vector2(
+                p.x * this.scale,
+                p.y * this.scale
+            ));
             const shape = new THREE.Shape(points);
             const geometry = new THREE.ExtrudeGeometry(shape, {
                 steps: 1,
-                depth: building.Height,
+                depth: building.Height * this.scale,
                 bevelEnabled: false
             });
 
@@ -176,7 +182,7 @@ class DataHandler {
             const mesh = new THREE.Mesh(geometry, material);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
-            mesh.position.z = building.GroundHeight;
+            mesh.position.z = building.GroundHeight * this.scale;
             buildingGroup.add(mesh);
         }
         buildingGroup.rotateX(-Math.PI / 2);
