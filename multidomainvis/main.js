@@ -159,7 +159,7 @@ function enableVR(scale, defaultLight) {
         renderer.render(scene, camera);
     } );
 
-    scene.background = new THREE.Color(0x00000,0);
+    //scene.background = new THREE.Color(0x00000,0);
 
     dolly = new THREE.Group();
     dolly.position.set(800, 10, -1000);
