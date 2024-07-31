@@ -1,0 +1,21 @@
+Program Version,EnergyPlus, Version 22.1.0-ed759b17ee, YMD=2023.10.17 13:16,
+   ************* Successfully added path "D:\\GitHub\\ComputationSustainableDesign\\Python Scripts\\Editing IDF files using python\\data" to the sys.path in Python
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** Weather file location will be used rather than entered (IDF) Location object.
+   **   ~~~   ** ..Location object=SITE 1
+   **   ~~~   ** ..Weather File Location=San Francisco Intl Ap CA USA TMY3 WMO#=724940
+   **   ~~~   ** ..due to location differences, Latitude difference=[37.62] degrees, Longitude difference=[122.40] degrees.
+   **   ~~~   ** ..Time Zone difference=[8.0] hour(s), Elevation difference=[200.00] percent, [2.00] meters.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="MEDIUMOFFICE BUILDING_SERVICE HOT WATER SCHEDULE_HOL", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="MEDIUMOFFICE BUILDING_SERVICE HOT WATER SCHEDULE_MONDAY", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="MEDIUMOFFICE BUILDING_SERVICE HOT WATER SCHEDULE_SATURDAY", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="MEDIUMOFFICE BUILDING_SERVICE HOT WATER SCHEDULE_SMRDSN", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="MEDIUMOFFICE BUILDING_SERVICE HOT WATER SCHEDULE_WNTRDSN", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="SCHEDULE DAY 16", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval="SCHEDULE DAY 17", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Year="0.05 HOT WATER LATENT FRACTION", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Year="0.2 HOT WATER SENSIBLE FRACTION", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Constant="ALWAYS OFF DISCRETE", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Constant="ALWAYS ON CONTINUOUS", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** CheckUsedConstructions: There are 22 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;

@@ -1,0 +1,237 @@
+Program Version,EnergyPlus, Version 22.1.0-ed759b17ee, YMD=2023.10.17 13:16
+1,5,Environment Title[],Latitude[deg],Longitude[deg],Time Zone[],Elevation[m]
+2,8,Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],Hour[],StartMinute[],EndMinute[],DayType
+3,5,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested
+4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested
+5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested
+6,1,Calendar Year of Simulation[] ! When Annual Report Variables Requested
+4346,1,FLR1_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4347,1,FLR1_SURROUNDING-OFFICE_10_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4348,1,FLR1_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4349,1,FLR1_SURROUNDING-OFFICE_11_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4350,1,FLR1_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4351,1,FLR1_SURROUNDING-OFFICE_12_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4352,1,FLR1_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4353,1,FLR1_SURROUNDING-OFFICE_13_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4354,1,FLR1_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4355,1,FLR1_SURROUNDING-OFFICE_14_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4356,1,FLR1_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4357,1,FLR1_SURROUNDING-OFFICE_15_FLOOR5_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4358,1,FLR1_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4359,1,FLR1_SURROUNDING-OFFICE_16_FLOOR5_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4360,1,FLR1_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4361,1,FLR1_SURROUNDING-OFFICE_17_FLOOR5_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4362,1,FLR1_SURROUNDING-OFFICE_18_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4363,1,FLR1_SURROUNDING-OFFICE_18_FLOOR3_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4364,1,FLR1_SURROUNDING-OFFICE_19_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4365,1,FLR1_SURROUNDING-OFFICE_19_FLOOR3_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4366,1,FLR1_SURROUNDING-OFFICE_1_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4367,1,FLR1_SURROUNDING-OFFICE_1_FLOOR2_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4368,1,FLR1_SURROUNDING-OFFICE_20_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4369,1,FLR1_SURROUNDING-OFFICE_20_FLOOR3_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4370,1,FLR1_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4371,1,FLR1_SURROUNDING-OFFICE_2_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4372,1,FLR1_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4373,1,FLR1_SURROUNDING-OFFICE_3_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4374,1,FLR1_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4375,1,FLR1_SURROUNDING-OFFICE_4_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4376,1,FLR1_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4377,1,FLR1_SURROUNDING-OFFICE_5_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4378,1,FLR1_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4379,1,FLR1_SURROUNDING-OFFICE_6_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4380,1,FLR1_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4381,1,FLR1_SURROUNDING-OFFICE_7_FLOOR7_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4382,1,FLR1_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4383,1,FLR1_SURROUNDING-OFFICE_8_FLOOR6_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4384,1,FLR1_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4385,1,FLR1_SURROUNDING-OFFICE_9_FLOOR6_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4386,1,FLR2_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4387,1,FLR2_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4388,1,FLR2_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4389,1,FLR2_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4390,1,FLR2_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4391,1,FLR2_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4392,1,FLR2_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4393,1,FLR2_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4394,1,FLR2_SURROUNDING-OFFICE_18_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4395,1,FLR2_SURROUNDING-OFFICE_19_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4396,1,FLR2_SURROUNDING-OFFICE_20_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4397,1,FLR2_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4398,1,FLR2_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4399,1,FLR2_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4400,1,FLR2_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4401,1,FLR2_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4402,1,FLR2_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4403,1,FLR2_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4404,1,FLR2_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4405,1,FLR3_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4406,1,FLR3_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4407,1,FLR3_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4408,1,FLR3_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4409,1,FLR3_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4410,1,FLR3_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4411,1,FLR3_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4412,1,FLR3_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4413,1,FLR3_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4414,1,FLR3_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4415,1,FLR3_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4416,1,FLR3_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4417,1,FLR3_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4418,1,FLR3_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4419,1,FLR3_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4420,1,FLR3_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4421,1,FLR4_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4422,1,FLR4_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4423,1,FLR4_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4424,1,FLR4_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4425,1,FLR4_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4426,1,FLR4_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4427,1,FLR4_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4428,1,FLR4_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4429,1,FLR4_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4430,1,FLR4_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4431,1,FLR4_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4432,1,FLR4_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4433,1,FLR4_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4434,1,FLR4_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4435,1,FLR4_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4436,1,FLR4_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4437,1,FLR5_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4438,1,FLR5_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4439,1,FLR5_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4440,1,FLR5_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4441,1,FLR5_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4442,1,FLR5_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4443,1,FLR5_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4444,1,FLR5_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4445,1,FLR5_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4446,1,FLR5_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4447,1,FLR5_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4448,1,FLR5_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4449,1,FLR5_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4450,1,FLR6_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4451,1,FLR6_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4452,1,FLR6_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4453,1,FLR6_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4454,1,FLR6_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4455,1,FLR6_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4456,1,FLR6_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4457,1,FLR6_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4458,1,FLR6_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4459,1,FLR6_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+4460,1,FLR6_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Lights Electricity Energy [J] !Hourly
+7384,1,FLR1_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7385,1,FLR1_SURROUNDING-OFFICE_10_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7386,1,FLR1_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7387,1,FLR1_SURROUNDING-OFFICE_11_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7388,1,FLR1_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7389,1,FLR1_SURROUNDING-OFFICE_12_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7390,1,FLR1_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7391,1,FLR1_SURROUNDING-OFFICE_13_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7392,1,FLR1_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7393,1,FLR1_SURROUNDING-OFFICE_14_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7394,1,FLR1_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7395,1,FLR1_SURROUNDING-OFFICE_15_FLOOR5_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7396,1,FLR1_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7397,1,FLR1_SURROUNDING-OFFICE_16_FLOOR5_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7398,1,FLR1_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7399,1,FLR1_SURROUNDING-OFFICE_17_FLOOR5_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7400,1,FLR1_SURROUNDING-OFFICE_18_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7401,1,FLR1_SURROUNDING-OFFICE_18_FLOOR3_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7402,1,FLR1_SURROUNDING-OFFICE_19_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7403,1,FLR1_SURROUNDING-OFFICE_19_FLOOR3_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7404,1,FLR1_SURROUNDING-OFFICE_1_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7405,1,FLR1_SURROUNDING-OFFICE_1_FLOOR2_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7406,1,FLR1_SURROUNDING-OFFICE_20_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7407,1,FLR1_SURROUNDING-OFFICE_20_FLOOR3_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7408,1,FLR1_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7409,1,FLR1_SURROUNDING-OFFICE_2_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7410,1,FLR1_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7411,1,FLR1_SURROUNDING-OFFICE_3_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7412,1,FLR1_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7413,1,FLR1_SURROUNDING-OFFICE_4_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7414,1,FLR1_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7415,1,FLR1_SURROUNDING-OFFICE_5_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7416,1,FLR1_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7417,1,FLR1_SURROUNDING-OFFICE_6_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7418,1,FLR1_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7419,1,FLR1_SURROUNDING-OFFICE_7_FLOOR7_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7420,1,FLR1_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7421,1,FLR1_SURROUNDING-OFFICE_8_FLOOR6_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7422,1,FLR1_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7423,1,FLR1_SURROUNDING-OFFICE_9_FLOOR6_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7424,1,FLR2_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7425,1,FLR2_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7426,1,FLR2_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7427,1,FLR2_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7428,1,FLR2_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7429,1,FLR2_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7430,1,FLR2_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7431,1,FLR2_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7432,1,FLR2_SURROUNDING-OFFICE_18_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7433,1,FLR2_SURROUNDING-OFFICE_19_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7434,1,FLR2_SURROUNDING-OFFICE_20_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7435,1,FLR2_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7436,1,FLR2_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7437,1,FLR2_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7438,1,FLR2_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7439,1,FLR2_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7440,1,FLR2_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7441,1,FLR2_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7442,1,FLR2_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7443,1,FLR3_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7444,1,FLR3_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7445,1,FLR3_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7446,1,FLR3_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7447,1,FLR3_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7448,1,FLR3_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7449,1,FLR3_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7450,1,FLR3_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7451,1,FLR3_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7452,1,FLR3_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7453,1,FLR3_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7454,1,FLR3_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7455,1,FLR3_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7456,1,FLR3_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7457,1,FLR3_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7458,1,FLR3_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7459,1,FLR4_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7460,1,FLR4_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7461,1,FLR4_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7462,1,FLR4_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7463,1,FLR4_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7464,1,FLR4_SURROUNDING-OFFICE_15_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7465,1,FLR4_SURROUNDING-OFFICE_16_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7466,1,FLR4_SURROUNDING-OFFICE_17_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7467,1,FLR4_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7468,1,FLR4_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7469,1,FLR4_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7470,1,FLR4_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7471,1,FLR4_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7472,1,FLR4_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7473,1,FLR4_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7474,1,FLR4_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7475,1,FLR5_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7476,1,FLR5_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7477,1,FLR5_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7478,1,FLR5_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7479,1,FLR5_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7480,1,FLR5_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7481,1,FLR5_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7482,1,FLR5_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7483,1,FLR5_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7484,1,FLR5_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7485,1,FLR5_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7486,1,FLR5_SURROUNDING-OFFICE_8_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7487,1,FLR5_SURROUNDING-OFFICE_9_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7488,1,FLR6_SURROUNDING-OFFICE_10_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7489,1,FLR6_SURROUNDING-OFFICE_11_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7490,1,FLR6_SURROUNDING-OFFICE_12_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7491,1,FLR6_SURROUNDING-OFFICE_13_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7492,1,FLR6_SURROUNDING-OFFICE_14_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7493,1,FLR6_SURROUNDING-OFFICE_2_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7494,1,FLR6_SURROUNDING-OFFICE_3_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7495,1,FLR6_SURROUNDING-OFFICE_4_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7496,1,FLR6_SURROUNDING-OFFICE_5_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7497,1,FLR6_SURROUNDING-OFFICE_6_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
+7498,1,FLR6_SURROUNDING-OFFICE_7_FLOOR1_ROOM1,Zone Electric Equipment Electricity Energy [J] !Hourly
