@@ -8,6 +8,24 @@ Date: July 2024
 
 This documentation provides a comprehensive guide on using a Grasshopper script to integrate with the PVGIS (Photovoltaic Geographical Information System) API. This script is designed to retrieve solar energy data and visualize it using Ladybug tools in Grasshopper. The script supports both monthly and hourly data retrieval modes.
 
+### Example
+
+Here are two images illustrating the Grasshopper canvas setup and the resulting visualizations:
+
+#### Grasshopper Canvas
+
+This image shows the Grasshopper canvas with the PVGIS API components and Ladybug visualization components set up:
+
+![The grasshopper canvas with the api components and LB visualisation components](ghcomponent.png)
+
+#### Results
+
+This image displays the results of the monthly, hourly, and hourly aggregated data visualizations using Ladybug:
+
+![Results of the monthly, hourly, and hourly aggregated data using LB](result.png)
+
+This documentation should help users understand how to set up and use the Grasshopper script to retrieve and visualize solar energy data using the PVGIS API. For further customization and advanced usage, refer to the official documentation of PVGIS API and Ladybug tools.
+
 ### Contents
 
 1. [Introduction](#introduction)
@@ -103,20 +121,3 @@ The script includes robust error handling mechanisms to manage various issues:
 - [PVGIS API Documentation](https://ec.europa.eu/jrc/en/pvgis)
 - [Ladybug Tools Documentation](https://www.ladybug.tools/)
 
-### Example
-
-Here are two images illustrating the Grasshopper canvas setup and the resulting visualizations:
-
-#### Grasshopper Canvas
-
-This image shows the Grasshopper canvas with the PVGIS API components and Ladybug visualization components set up:
-
-![The grasshopper canvas with the api components and LB visualisation components](ghcomponent.png)
-
-#### Results
-
-This image displays the results of the monthly, hourly, and hourly aggregated data visualizations using Ladybug:
-
-![Results of the monthly, hourly, and hourly aggregated data using LB](result.png)
-
-This documentation should help users understand how to set up and use the Grasshopper script to retrieve and visualize solar energy data using the PVGIS API. For further customization and advanced usage, refer to the official documentation of PVGIS API and Ladybug tools.
