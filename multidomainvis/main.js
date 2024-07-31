@@ -2,14 +2,15 @@ import * as THREE from 'three';
 
 import {GUI} from './libs/lil-gui.module.min.js';
 import {MapControls} from './libs/OrbitControls.js';
-import {Sky} from './libs/Sky.js';
 import {DataHandler} from './src/DataHandler.js';
 import {DataSet} from './src/Dataset.js';
 import {CSVLoader} from './src/CSVLoader.js';
+import {XRButton} from './libs/XRButton.js';
+import {XREstimatedLight} from './libs/XREstimatedLight.js'
 
 let container;
-let camera, scene, renderer;
-let controls, sun;
+let dolly, camera, scene, renderer;
+let controls;
 
 const parameters = {
     buildingOption: true,
@@ -17,7 +18,7 @@ const parameters = {
     noise: true,
     wind: true,
     radiation: true,
-    option: "Option 0"
+    option: "Option 1"
 };
 
 let dataSets;
@@ -151,59 +152,112 @@ try {
     }
 }
 
-function init(cityModelData) {
-    container = document.getElementById('container');
+function enableVR(scale, defaultLight) {
+    renderer.xr.enabled = true;
+    document.body.appendChild(XRButton.createButton(renderer, {optionalFeatures: ['light-estimation']}));
+    renderer.setAnimationLoop(function () {
+        renderer.render(scene, camera);
+    } );
 
-    renderer = new THREE.WebGLRenderer();
+    //scene.background = new THREE.Color(0x00000,0);
+
+    dolly = new THREE.Group();
+    dolly.position.set(800, 10, -1000);
+    dolly.position.multiplyScalar(scale);
+    dolly.add(camera);
+    scene.add(dolly);
+
+    const xrLight = new XREstimatedLight(renderer);
+
+    xrLight.addEventListener('estimationstart', () => {
+        scene.add(xrLight);
+        scene.remove(defaultLight);
+        if (xrLight.environment) {
+            scene.environment = xrLight.environment;
+        }
+    });
+
+    xrLight.addEventListener('estimationend', () => {
+        scene.add(defaultLight);
+        scene.remove(xrLight);
+        scene.environment = defaultEnvironment;
+    });
+}
+
+function init(cityModelData) {
+    const params = new URLSearchParams(window.location.search);
+    const useVR = params.get('vr') !== null &&  params.get('vr') !== "false";
+    let scale = params.get("scale");
+
+    if (scale === null) {
+        if (useVR) {
+            scale = 1e-2;
+        } else {
+            scale = 1;
+        }
+    }
+
+    container = document.getElementById('container');
+    container.style = "background:none";
+
+    renderer = new THREE.WebGLRenderer({antialias: true , alpha: true});
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
-
+    renderer.domElement.style = "background:none";
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-    camera.position.set(700, 300, -1800);
+    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2000);
 
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
 
-    sun = new THREE.Vector3();
-    const sky = new Sky();
-    sky.scale.setScalar(10000);
-    scene.add(sky);
+    let hemilight = new THREE.HemisphereLight(0x808080, 0x606060);
+    hemilight.intensity = 3;
 
-    const skyUniforms = sky.material.uniforms;
+    const light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(0, 0, 0);
+    light.target.position.set(830, 0, -1050);
+    light.target.position.multiplyScalar(scale);
+    light.intensity = 4;
+    light.castShadow = true;
+    light.shadow.radius = 32 * scale;
+    light.shadow.camera.top = 300 * scale;
+    light.shadow.camera.bottom = -300 * scale;
+    light.shadow.camera.right = 300 * scale;
+    light.shadow.camera.left = - 300 * scale;
+    light.shadow.camera.far = 1300 * scale;
+    light.shadow.mapSize.set(8192, 8192);
 
-    skyUniforms['turbidity'].value = 10;
-    skyUniforms['rayleigh'].value = 2;
-    skyUniforms['mieCoefficient'].value = 0.005;
-    skyUniforms['mieDirectionalG'].value = 0.8;
+    light.target.updateMatrixWorld();
+    light.shadow.camera.updateProjectionMatrix();
 
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    let renderTarget;
+    let defaultLight = new THREE.Group();
+    defaultLight.add(hemilight);
+    defaultLight.add(light);
+    defaultLight.position.set(700, 500, -1800);
+    defaultLight.position.multiplyScalar(scale);
+    scene.add(defaultLight);
 
-    const phi = THREE.MathUtils.degToRad(73);
-    const theta = THREE.MathUtils.degToRad(80);
-    const exposure = 0.7;
-    sun.setFromSphericalCoords(1, phi, theta);
-    sky.material.uniforms['sunPosition'].value.copy(sun);
-    if (renderTarget !== undefined) renderTarget.dispose();
-    renderTarget = pmremGenerator.fromScene(sky);
-    renderer.toneMappingExposure = exposure;
-    scene.environment = renderTarget.texture;
+    if (useVR) {
+        enableVR(scale, defaultLight);
+    } else {
+        camera.position.set(915, 227, -1352);
+        camera.position.multiplyScalar(scale);
+    }
 
     controls = new MapControls(camera, renderer.domElement);
     controls.addEventListener('change', render);
     controls.maxPolarAngle = Math.PI * 0.495;
     controls.target.set(800, 50, -1000);
-    controls.minDistance = 1.0;
-    controls.maxDistance = 5000.0;
+    controls.target.multiplyScalar(scale);
+    controls.minDistance = 1.0 * scale;
+    controls.maxDistance = 5000.0 * scale;
     controls.update();
 
     window.addEventListener('resize', onWindowResize);
 
-    const dataHandler = new DataHandler(scene, parameters);
+    const dataHandler = new DataHandler(scene, scale);
     const csvLoader = new CSVLoader(3);
 
     const searchParams = new URL(window.location.href).searchParams;
