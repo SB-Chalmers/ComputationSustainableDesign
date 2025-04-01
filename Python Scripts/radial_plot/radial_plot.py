@@ -32,6 +32,7 @@ def plot_radial_calendar(
     attribution_color: str = "white",
     dpi: int = 100,
     glow: bool = False,
+    mask_months: Optional[list] = None,
 ) -> Tuple[plt.Figure, plt.Axes]:
     """
     Create a radial calendar plot with January positioned at ~1 o'clock,
@@ -106,6 +107,13 @@ def plot_radial_calendar(
     if dpi > 600:
         raise ValueError("dpi must be less than or equal to 600.")
     
+    if not isinstance(glow, bool):
+        raise ValueError("glow must be a boolean.")
+    
+    if mask_months is not None:
+        if not isinstance(mask_months, list) or not all(isinstance(m, int) and 1 <= m <= 12 for m in mask_months):
+            raise ValueError("mask_months must be a list of integers between 1 and 12.")
+    
     
     # Determine expected number of hours based on the year (leap year or not)
     expected_hours = 8784 if calendar.isleap(year) else 8760
@@ -129,6 +137,9 @@ def plot_radial_calendar(
         elif not isinstance(cmap, LinearSegmentedColormap):
             raise ValueError("cmap must be a string, LinearSegmentedColormap, or a list of colors.")
     
+
+
+
     # --- Setup Figure and Axes ---
     if ax is None:
         fig, ax = plt.subplots(figsize=fig_size, facecolor=bg_color, dpi = dpi)
@@ -179,6 +190,18 @@ def plot_radial_calendar(
         y_line = [(inner_radius * 2) * np.sin(angle), (outer_radius * 1) * np.sin(angle)]
         ax.plot(x_line, y_line, color=line_color, linewidth=0.5, alpha=0.5)
 
+    # Mask out the months that are in the mask_months list
+    if mask_months is not None:
+        combined_mask = np.zeros_like(days, dtype=bool)
+        for month in mask_months:
+            month_start = month_starts[month - 1]
+            days_in_month = calendar.monthrange(year, month)[1]
+            combined_mask |= (days >= month_start) & (days < month_start + days_in_month)
+        data.loc[combined_mask, size_column] = np.nan
+        data.loc[combined_mask, colour_column] = np.nan
+        x_coords[combined_mask] = np.nan 
+        y_coords[combined_mask] = np.nan
+        sizes[combined_mask] = np.nan
 
 
     # Use PowerNorm to brighten the colors (gamma < 1 brightens the colormap)
@@ -218,7 +241,7 @@ def plot_radial_calendar(
             middle_day = (month_starts[i] + days_in_year) / 2
         
         angle = (-middle_day * 2 * np.pi / days_in_year) + (np.pi / 2)
-        label_radius = outer_radius * 1.05
+        label_radius = outer_radius * 1.1
         x_label = label_radius * np.cos(angle)
         y_label = label_radius * np.sin(angle)
         rotation = (np.degrees(angle) - 90) % 360
