@@ -1,51 +1,23 @@
-# Projects within the Computation Sustainable Design Group
+# Geospatial Python notebooks
 
-This folder contains Python scripts developed by the Computation Sustainable Design group at Chalmers University of Technology. The projects here span a diverse range of applications, from energy simulation and IDF file editing to data visualization and geocoding.
+Two small notebooks remain in this collection. Their code and original explanatory notes are preserved; their external services, dependencies and results were not revalidated during migration.
 
-## Contents
+| Notebook | Purpose and required inputs |
+| --- | --- |
+| [Geocode Addresses to XYZ.ipynb](Geocode%20Addresses%20to%20XYZ.ipynb) | Geocode address rows with geocode.xyz, record latitude/longitude/confidence and create maps and geospatial exports. The example uses region `SE` and an API-key placeholder. Supply your own service credentials and review the input/output filenames before running. |
+| [GeoJSON_to_xy.ipynb](GeoJSON_to_xy.ipynb) | Read polygon GeoJSON, reproject to EPSG:3006 and subtract a configured origin to print local XY coordinates for modelling. Supply the referenced `option_3.geojson` or update the input path and origin for your data. |
 
-- **Geocode Addresses to XYZ (IPython Notebook)**
-  - A notebook for converting addresses into 3D coordinates.
-  
-- **Editing IDF Files using Python**
-  - Scripts for modifying EnergyPlus IDF files with wind pressure coefficients and other parameters.
-  - Includes key scripts such as:
-    - [update_cp.py](Editing IDF files using python/update_cp.py)
-    - [eppy_parallel_helper.py](Editing IDF files using python/eppy_parallel_helper.py)
-    - [runep.py](Editing IDF files using python/runep.py)
-    - Additional supporting modules and README files in the subfolder.
-  
-- **Radial Plot**
-  - A script to generate radial calendar plots for time-series data visualization.
-  - Refer to the [radial_plot readme](radial_plot/readme.md) for more details and examples.
+Both notebooks identify **Sanjay Somanath** in their original notes. Open them in a suitable Jupyter environment and review cells before execution. Package versions are not pinned: the geocoding notebook uses `requests`, `pandas`, `geopandas`, `matplotlib`, `contextily`, `folium` and `mapclassify`; the coordinate notebook uses `geopandas`, `pyproj` and `pandas`. Follow each notebook's imports and installation cells. TODO: document verified environments, external-service/data terms and a reproducible small input for each notebook.
 
-  ![plot](radial_plot/img/03.png)
+The geocoding notebook's historical filename includes “XYZ”, but its documented geocoding outputs are latitude, longitude and confidence; an elevation output is not established. The GeoJSON example expects polygon exteriors and contains case-specific coordinate settings.
 
-## Getting Started
+## Projects moved to their own repositories
 
-1. **Clone the Repository**  
-   ```sh
-   git clone https://github.com/your-repo/ComputationSustainableDesign.git
-   ```
+| Former collection folder | Current repository |
+| --- | --- |
+| `radial_plot/` | [Radial Calendar Plot](https://github.com/SB-Chalmers/radial-calendar-plot): create radial calendar plots from time-series data with Python. |
+| `Editing IDF files using python/` | [EnergyPlus Pressure Coefficient Tools](https://github.com/SB-Chalmers/energyplus-cp-tools): map CFD wind pressure coefficients to EnergyPlus AirflowNetwork models and run simulation workflows. |
 
-2. **Install Required Libraries**  
-   The projects make use of various Python libraries such as:
-   - `pandas`
-   - `numpy`
-   - `plotly`
-   - `eppy`
-   - `scipy`
-   - `BeautifulSoup`  
-   Install them via pip:
-   ```sh
-   pip install pandas numpy plotly eppy scipy beautifulsoup4
-   ```
+Use each project's current README for installation, entry points and input provenance. Original source files and contributor metadata remain in this collection's Git history.
 
-3. **Explore the Projects**  
-   Navigate through each subfolder to explore the individual projects and follow the instructions provided in their respective README files.
-
-## Contributions
-
-Contributions are welcome. If you have suggestions or improvements:
-- Open an issue or submit a pull request.
-- Follow the code style guidelines and ensure new changes do not break existing functionality.
+See the [collection catalogue](../) for all eight extracted repositories. Keep notebook issues in this collection and standalone project issues in their current repositories.

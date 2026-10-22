@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Computational Sustainable Design collection</title>
+  </head>
+  <body>
+    <main>
+      <h1 id="title">Page not found</h1>
+      <p id="message">Find the current projects in the <a href="https://github.com/SB-Chalmers/ComputationSustainableDesign">Computational Sustainable Design collection</a>.</p>
+    </main>
+    <script>
+      // Only the known former viewer entry point has moved to this destination.
+      if (/^\/ComputationSustainableDesign\/multidomainvis\/?$/.test(window.location.pathname)) {
+        const destination = "https://sb-chalmers.github.io/multidomain-viewer/" + window.location.search + window.location.hash;
+        document.getElementById("title").textContent = "The multidomain viewer has moved";
+        const message = document.getElementById("message");
+        message.textContent = "Continue to ";
+        const link = document.createElement("a");
+        link.href = destination;
+        link.textContent = "the Multidomain Urban Design Viewer";
+        message.appendChild(link);
+        window.location.replace(destination);
+      }
+    </script>
+  </body>
+</html>
