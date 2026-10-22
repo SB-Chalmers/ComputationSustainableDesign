@@ -16,7 +16,7 @@ The first three examples document Ladybug Tools **1.5.0** and a location-specifi
 | Former collection folder | Current repository |
 | --- | --- |
 | `PVGIS_API/` | [PVGIS for Grasshopper](https://github.com/SB-Chalmers/grasshopper-pvgis) |
-| `DecarbonAIte_LCA_LCC_Optimizer/` | [DecarbonAIte](https://github.com/SB-Chalmers/decarbonaite) |
+| `DecarbonAIte_LCA_LCC_Optimizer/` | [decarbonAIte](https://github.com/SB-Chalmers/decarbonAIte) |
 | `ACE405_bps_lca_script/` | [ACE405 Building Analysis](https://github.com/SB-Chalmers/ace405-building-analysis) |
 | `HBConstruction _from_CSV/` and `custom_u_value_to_construction/` | [Honeybee Construction Tools](https://github.com/SB-Chalmers/honeybee-construction-tools), grouped as `csv-constructions/` and `target-u-value/` |
 | `DTCC_CITYJSON_parser/` and `DTCC_WindComfort_Parser/` | [DTCC Grasshopper Tools](https://github.com/SB-Chalmers/dtcc-grasshopper), grouped as `citymodel/` and `wind-comfort/` |

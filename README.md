@@ -8,10 +8,10 @@ This repository is the collection hub for Computational Sustainable Design scrip
 | --- | --- |
 | [Radial Calendar Plot](https://github.com/SB-Chalmers/radial-calendar-plot) | Create radial calendar plots from time-series data with Python. |
 | [PVGIS for Grasshopper](https://github.com/SB-Chalmers/grasshopper-pvgis) | Explore monthly and hourly solar energy estimates from PVGIS in Rhino and Grasshopper. |
-| [DecarbonAIte](https://github.com/SB-Chalmers/decarbonaite) | Explore renovation alternatives using energy simulation, life cycle carbon, and life cycle costs. |
+| [decarbonAIte](https://github.com/SB-Chalmers/decarbonAIte) | Renovation energy, carbon and cost workflow from the [decarbonAIte research project](https://research.chalmers.se/project/10568). |
 | [EnergyPlus Pressure Coefficient Tools](https://github.com/SB-Chalmers/energyplus-cp-tools) | Map CFD wind pressure coefficients to EnergyPlus AirflowNetwork models and run simulation workflows. |
 | [ACE405 Building Analysis](https://github.com/SB-Chalmers/ace405-building-analysis) | Grasshopper teaching workflow for building energy, daylight, glare, and life cycle assessment. |
-| [Multidomain Urban Design Viewer](https://github.com/SB-Chalmers/multidomain-viewer) | Explore urban design alternatives with combined energy, wind, noise, and solar radiation results in 3D. |
+| [Multidomain Urban Design Viewer](https://github.com/SB-Chalmers/multidomain-viewer) | 3D visualization accompanying the [Gothenburg multi-domain simulation paper](https://research.chalmers.se/publication/546286). |
 | [Honeybee Construction Tools](https://github.com/SB-Chalmers/honeybee-construction-tools) | Create Honeybee constructions from CSV material data and target U-values in Grasshopper. |
 | [DTCC Grasshopper Tools](https://github.com/SB-Chalmers/dtcc-grasshopper) | Import DTCC city models and wind comfort results into Rhino and Grasshopper. |
 
